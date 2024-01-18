@@ -1,0 +1,46 @@
+﻿@model BookSale.Management.UI.Areas.Admin.Models.LoginSiteModel
+
+<div class="row mt-4">
+    <div class="col-md-4 offset-md-3">
+        <div class="card">
+            <form asp-controller="Login" method="post" asp-antiforgery="true" >
+                <div class="card-body">
+                    <h3>Login</h3>
+                    @* <div asp-validation-summary="All" class="text-danger"></div> *@
+                    <input type="hidden"  asp-for="ReturnUrl" />
+                    <input type="hidden"  asp-for="Captcha" />
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="text" class="form-control" asp-for="Username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" asp-for="Password">
+                    </div>
+                    <div id="recaptcha"></div>
+                    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                    <hr />
+                    <div class="mb-3">
+                        <a href="/login/external?provider=Google" class="btn btn-danger">Google</a>
+                        <a href="/login/external?provider=Facebook" class="btn btn-primary">Facebook</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer> </script>
+    <script src="~/js/components/login.js"></script>
+    <script>
+        var onloadCallback = function () {
+            grecaptcha.render('recaptcha', {
+                'sitekey': '6LfwSjIpAAAAAEoxWZJVZHM9Ad3IIbRC5Z6uLH16',
+                'callback': function (response) {
+                    $('#Captcha').val(response);
+                }
+            });
+        };
+    </script>
+}

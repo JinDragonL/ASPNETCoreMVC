@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/admin/assets/extra-libs/datatables/datatables-1.10.16/css/datatables.bootstrap4.min.css" rel="stylesheet" />
+
+@await Html.PartialAsync("~/Areas/Admin/Views/Shared/_BreadScrum.cshtml")
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="tbl-order" class="table table-striped table-bordered display nowrap" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <td class="text-center"><a href='/admin/order/savedata' title="Add"><i class='sl-icon-plus'></i></a></td>
+                                    <td>Fullname</td>
+                                    <td>Code</td>
+                                    <td>Created On</td>
+                                    <td>Total Price</td>
+                                    <td>Payment Method</td>
+                                    <td>Status</td>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/admin/assets/extra-libs/datatables/datatables.min.js"></script>
+    <script src="~/js/registerdatatable.js"></script>
+    <script src="~/admin/components/order.js"></script>
+}

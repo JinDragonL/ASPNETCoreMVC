@@ -1,0 +1,89 @@
+﻿@using BookSale.Management.UI.Resources;
+@using Microsoft.AspNetCore.Localization;
+@using Microsoft.Extensions.Localization;
+@using Microsoft.Extensions.Options;
+@{
+    LanguageViewModel languageViewModel = new LanguageViewModel();
+}
+@inject IStringLocalizer<Resource> _localizer;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookSale Management</title>
+    <link href="~/clientbundle/layout.site.min.css" rel="stylesheet" />
+   @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/css/site/css/plugins/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/site/css/plugins/bicon.min.css" rel="stylesheet" />
+    <link href="~/js/toaster/jquery.toast.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" /> *@
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-secondary p-2">
+            <a class="navbar-brand text-light" href="#">Book Sale</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="d-flex w-100">
+                <div class="flex-grow-1 p-2">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link text-light" asp-controller="home">@_localizer["Home"] </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-controller="shop">@_localizer["Shop"]</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-2">
+                    <partial name="_LoginPartial.cshtml" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+       @{
+            var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+
+            var options = (requestCulture.Provider as CookieRequestCultureProvider).Options;
+
+            var cultureItems = options.SupportedCultures.Select(culture => new SelectListItem
+            {
+                Value = culture.Name,
+                Text = culture.Parent.DisplayName
+            });
+
+            var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
+        }
+       @*  <div>
+            <form id="selectLanguage" asp-controller="Home"
+                  asp-action="SetLanguage" method="post" class="form-horizontal" role="form">
+                <input type="hidden" value="@returnUrl" name="@nameof(languageViewModel.ReturnUrl)" />
+                <select name="@nameof(languageViewModel.Lang)" onchange="this.form.submit();" 
+                        asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                        asp-items="cultureItems" >
+                </select>
+            </form>
+        </div> *@
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/clientbundle/layout.site.min.js"></script>
+    @*
+    <script src="~/admin/assets/libs/popper.js/dist/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/toaster/jquery.toast.min.js"></script>
+    <script src="~/js/jquery.blockui.js"></script>
+    <script src="~/js/common.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script> *@
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

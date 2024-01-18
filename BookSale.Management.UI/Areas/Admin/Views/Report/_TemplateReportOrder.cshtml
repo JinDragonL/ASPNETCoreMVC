@@ -1,0 +1,95 @@
+﻿@using System.Globalization;
+@model BookSale.Management.Application.DTOs.Report.ReportOrderDTO
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding-top: 20px;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .order-details {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+        .order-details th, .order-details td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+    .customer-info {
+        margin-top: 20px;
+    }
+</style>
+
+<div class="container">
+    <div class="header">
+        <h1 style="color:#1c1c84;">Order Confirmation</h1>
+    </div>
+    <div class="customer-info">
+        <h3 style="color:#a92f43;">Order Information</h3>
+        <p><strong>Code:</strong> @Model.Code</p>
+        <p><strong>Created On:</strong> @Model.CreateOn.ToString("dd/MM/yyyy hh:mm")</p>
+    </div>
+    <div class="customer-info">
+        <h3 style="color:#a92f43;">Customer Information</h3>
+        <p><strong>Name:</strong> @Model.Address.Name</p>
+        <p><strong>Phone:</strong> @Model.Address.Phone</p>
+        <p><strong>Email:</strong> @Model.Address.Email</p>
+        <p><strong>Address:</strong> @Model.Address.Address</p>
+    </div>
+
+    <table class="order-details">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var books = Model.Details;
+                double totalPrice = 0;
+
+                foreach (var book in books)
+                {
+                    <tr>
+                        <td>@book.ProductName</td>
+                        <td style="width: 100px;text-align:right;">@book.Quantity</td>
+                        <td style="width: 150px;text-align:right;">@book.Price.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+                        <td style="width: 150px;text-align:right;">@((book.Price * book.Quantity).ToString("C", CultureInfo.GetCultureInfo("vi-VN")))</td>
+                    </tr>
+
+                    totalPrice += (book.Price * book.Quantity);
+                }
+            }
+        </tbody>
+    </table>
+
+    <table class="order-details" style="width:300px; float:right;">
+        <tbody>
+            <tr>
+                <td colspan="3">Discount</td>
+                <td style="width: 120px;text-align:right;">0%</td>
+            </tr>
+            <tr>
+                <td colspan="3">Total</td>
+                <td style="width: 120px;text-align:right"><b style="color:#0091e4;">@(totalPrice.ToString("C", CultureInfo.GetCultureInfo("vi-VN")))</b></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

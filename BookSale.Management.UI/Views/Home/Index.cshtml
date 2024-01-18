@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BookSale.Management.Application.DTOs.Book.BookDTO>
+@inject IStringLocalizer<Resource> _localizer;
+@using BookSale.Management.UI.Resources;
+@using Microsoft.Extensions.Localization;
+
+@using System.Globalization;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<link href="~/lib/splide.min.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-12">
+        <div class="text-center">
+            <h5 class="display-4">@_localizer["Welcome"]</h5>
+            <div class="mt-5">
+                <section class="splide" aria-label="Splide Basic HTML Example">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            @{
+                                foreach (var book in Model)
+                                {
+                                    <li class="splide__slide">
+                                        <partial name="~/Views/Shop/_ProductItems.cshtml" model="book" />
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/splide.min.js"></script>
+    <script>
+        $(function () {
+            var splide = new Splide('.splide', {
+                autoHeight: true,
+                focus: 0,
+                rewind: true,
+                perPage: 4,
+            });
+            splide.mount();
+        });
+    </script>
+}

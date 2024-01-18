@@ -1,0 +1,17 @@
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\bin\Debug\net7.0\BookSale.Management.Application.deps.json
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\bin\Debug\net7.0\BookSale.Management.Application.dll
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\bin\Debug\net7.0\BookSale.Management.Application.pdb
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\bin\Debug\net7.0\BookSale.Management.DataAccess.dll
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\bin\Debug\net7.0\BookSale.Management.Domain.dll
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\bin\Debug\net7.0\BookSale.Management.DataAccess.pdb
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\bin\Debug\net7.0\BookSale.Management.Domain.pdb
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\obj\Debug\net7.0\BookSale.Management.Application.csproj.AssemblyReference.cache
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\obj\Debug\net7.0\BookSale.Management.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\obj\Debug\net7.0\BookSale.Management.Application.AssemblyInfoInputs.cache
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\obj\Debug\net7.0\BookSale.Management.Application.AssemblyInfo.cs
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\obj\Debug\net7.0\BookSale.Management.Application.csproj.CoreCompileInputs.cache
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\obj\Debug\net7.0\BookSale.Management.Application.csproj.CopyComplete
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\obj\Debug\net7.0\BookSale.Management.Application.dll
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\obj\Debug\net7.0\refint\BookSale.Management.Application.dll
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\obj\Debug\net7.0\BookSale.Management.Application.pdb
+D:\ProjectSample\BookSale.Management\BookSale.Management.Application\obj\Debug\net7.0\ref\BookSale.Management.Application.dll

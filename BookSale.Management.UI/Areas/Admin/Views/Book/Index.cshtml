@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/admin/assets/extra-libs/datatables/datatables-1.10.16/css/datatables.bootstrap4.min.css" rel="stylesheet" />
+
+@await Html.PartialAsync("~/Areas/Admin/Views/Shared/_BreadScrum.cshtml")
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="tbl-book" class="table table-striped table-bordered display nowrap" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <td class="text-center"><a href='/admin/book/savedata' id="btn-add" title="Add"><i class='sl-icon-plus'></i></a></td>
+                                    <td>Genre</td>
+                                    <td>Code</td>
+                                    <td>Title</td>
+                                    <td>Available</td>
+                                    <td>Cost</td>
+                                    <td>Publisher</td>
+                                    <td>Author</td>
+                                    <td>Created On</td>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/admin/assets/extra-libs/datatables/datatables.min.js"></script>
+    <script src="~/js/registerdatatable.js"></script>
+    <script src="~/admin/components/book.js"></script>
+}
+
+

@@ -1,0 +1,82 @@
+﻿@model BookSale.Management.UI.Areas.Admin.Models.LoginModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/admin/images/logo.png">
+    <title>Login</title>
+    <link href="~/admin/dist/css/style.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" >
+            <div class="auth-box">
+                <div id="loginform">
+                    <div class="logo">
+                        <span class="db">
+                            <img src="~/admin/images/logo.png" alt="logo" height="50" />
+                        </span>
+                        <h3 class="font-medium m-b-20">Sign In</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <form class="form-horizontal m-t-20" id="loginform" method="post" asp-antiforgery="true"
+                                            asp-controller="authentication" asp-action="login">
+                                <span class="text-danger">@TempData["errors"]</span>
+                                @Html.ValidationSummary(true)
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ti-user"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-lg" placeholder="Username"
+                                        asp-for="Username" aria-label="Username"> 
+                                </div>
+                                <span class="text-danger" asp-validation-for="Username"></span>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ti-pencil"></i></span>
+                                    </div>
+                                    <input type="password" class="form-control form-control-lg" placeholder="Password"
+                                           asp-for="Password" aria-label="Password" >
+                                </div>
+                                <span class="text-danger" asp-validation-for="Password"></span>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" asp-for="HasRemember">
+                                            <label class="custom-control-label" for="HasRemember">Remember me</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group text-center">
+                                    <div class="col-xs-12 p-b-20">
+                                        <button class="btn btn-block btn-lg btn-info" type="submit">Log In</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+    </script>
+</body>
+
+</html>

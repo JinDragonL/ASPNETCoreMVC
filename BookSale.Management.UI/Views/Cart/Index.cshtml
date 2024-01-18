@@ -1,0 +1,68 @@
+﻿@using System.Globalization;
+@model IEnumerable<BookSale.Management.Application.DTOs.Book.BookCartDTO>
+
+<div class="row mt-5">
+    <div class="d-flex flex-row-reverse">
+        <button type="button" id="btn-save-cart" class="btn btn-primary"><i class="fa fa-floppy-o"></i> &nbsp; Save</button> &nbsp;
+        <a href="/checkout?returnUrl=/checkout" id="btn-checkout" class="btn btn-danger @(Model is not null ? "" : "disable-link")"><i class="fa fa-floppy-o"></i> &nbsp; Check Out</a>
+    </div>
+    <div class="col-12">
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr style="background: #f7fca5">
+                    <th scope="col">#</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-cart">
+                @{
+                    double totalCart = 0;
+
+                    if(Model is not null)
+                    {
+                        foreach (var book in Model)
+                        {
+                            <tr data-code="@book.Code">
+                                <td style="width:80px">1</td>
+                                <td style="width:100px" class="text-center"><img src="/images/book/@(book.Id).png" height="150" /></td>
+                                <td>@book.Title</td>
+                                <td class="col-cart"><input type="number" class="form-control txt-quantity-cart"  value="@book.Quantity" /></td>
+                                <td class="col-cart txt-price">@book.Price.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+                                <td class="col-cart txt-total">@((book.Quantity * book.Price).ToString("C", CultureInfo.GetCultureInfo("vi-VN")))</td>
+                                <td class="text-center col-cart-action">
+                                    <a href="#" class="btn-delete-cart"> <img src="~/images/trash.png" height="25" /></a>
+                                </td>
+                            </tr>
+
+                            totalCart += (book.Quantity * book.Price);
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7">No data to display</td>
+                        </tr>
+                    }
+                }
+                
+                <tr >
+                    <td colspan="5"><b>Total</b></td>
+                    <td colspan="2">
+                        <b id="txt-total-cart">@totalCart.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</b>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/components/cart.js"></script>
+}

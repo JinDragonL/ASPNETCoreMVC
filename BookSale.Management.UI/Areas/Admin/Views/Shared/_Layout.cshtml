@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/admin/assets/images/favicon.png">
+    <title>@ViewData["Title"]</title>
+    <link href="~/clientbundle/layout.admin.min.css" rel="stylesheet" />
+    <link href="~/admin/dist/css/style.min.css" rel="stylesheet" />
+
+   @*  <link href="~/admin/assets/extra-libs/horizontal-timeline/horizontal-timeline.css" rel="stylesheet" />
+    <link href="~/js/toaster/jquery.toast.min.css" rel="stylesheet" />
+    <link href="~/css/main.css" rel="stylesheet" /> *@
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <div id="main-wrapper">
+        @await Html.PartialAsync("_Header.cshtml")
+        <aside class="left-sidebar">
+            <div class="scroll-sidebar">
+                @await Html.PartialAsync("_Menu.cshtml")
+            </div>
+        </aside>
+        <div class="page-wrapper">
+            @RenderBody()
+            @await Html.PartialAsync("_Footer.cshtml")
+        </div>
+    </div>
+    <script src="~/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/admin/assets/libs/popper.js/dist/esm/popper.min.js"></script>*@
+    <script src="~/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/toaster/jquery.toast.min.js"></script>
+    <script src="~/admin/dist/js/app.min.js"></script>
+    <script src="~/admin/dist/js/app.init.horizontal-fullwidth.js"></script>
+    <script src="~/js/jquery.blockui.js"></script>
+    <script src="~/admin/assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="~/admin/dist/js/waves.js"></script>
+    <script src="~/lib/moment.min.js"></script>
+    <script src="~/admin/dist/js/custom.min.js"></script>
+    <script src="~/js/common.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

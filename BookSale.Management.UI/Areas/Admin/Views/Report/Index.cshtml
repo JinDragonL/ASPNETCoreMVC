@@ -1,0 +1,142 @@
+﻿@using BookSale.Management.Application.DTOs.Report
+@model IEnumerable<ReportOrderResponseDTO>
+@using BookSale.Management.Domain.Enums
+@using System.Globalization;
+@{
+    ViewData["Title"] = "Account List";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    var filters = ViewBag.FilterData as ReportOrderRequestDTO;
+}
+
+<link href="~/admin/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+@await Html.PartialAsync("~/Areas/Admin/Views/Shared/_BreadScrum.cshtml")
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Filter</h5>
+                    <hr>
+                    <div class="example">
+                        <div class="input-daterange input-group" id="date-range">
+                            <input type="text" class="form-control" name="start" id="start" value="@filters.From" />
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-info b-0 text-white">TO</span>
+                            </div>
+                            <input type="text" class="form-control" name="end" id="end" value="@filters.To" />
+                        </div>
+                    </div>
+                    <div class="example mt-2">
+                        <div class="form-group">
+                            <label class="control-label">Genre </label>
+                            <select id="ddl-genre" class="form-control">
+                                <option value="0">Please select</option>
+                                @{
+                                    var genres = ViewBag.Genres as IEnumerable<SelectListItem>;
+
+                                    foreach (var genre in genres)
+                                    {
+                                        if (filters.GenreId == Convert.ToInt32(genre.Value))
+                                        {
+                                            <option value="@genre.Value" selected>@genre.Text</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@genre.Value">@genre.Text</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="example mt-2">
+                        <div class="form-group">
+                            <label class="control-label">Status </label>
+                            <select id="ddl-status" class="form-control">
+                                @{
+                                    var statusItems = (StatusProcessing[])Enum.GetValues(typeof(StatusProcessing));
+
+                                    foreach (var status in statusItems)
+                                    {
+                                        if (filters.Status == status)
+                                        {
+                                            <option value="@((int)status)" selected>@Enum.GetName(status)</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@((int)status)">@Enum.GetName(status)</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex no-block align-items-center">
+                        <div class="ml-auto">
+                            <button class="btn waves-effect waves-light btn-info" id="btn-submit"><i class="ti-reload"></i> &nbsp; Submit</button>
+                            <a href="/admin/report" type="button" class="btn waves-effect waves-light btn-dark">Reset</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 col-lg-9">
+            <div class="table-responsive">
+                <div class="d-flex no-block align-items-center">
+                    <h3>Order Report</h3>
+                    <div class="ml-auto">
+                        <button class="btn waves-effect btn-danger" id="btn-export"><i class="ti-save"></i> &nbsp; Export</button>
+                    </div>
+                </div>
+                <hr>
+                <table class="table product-overview">
+                    <thead>
+                        <tr class="table-success">
+                            <th class="text-center">Order Code</th>
+                            <th class="text-center">Customer</th>
+                            <th class="text-center">Created On</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Total</th>
+                            <th class="text-center">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{
+                            var orderItems = Model;
+
+                            if (orderItems.Any())
+                            {
+                                foreach (var order in orderItems)
+                                {
+                                    <tr>
+                                        <td style="width: 150px;"><b>@order.Code</b></td>
+                                        <td> @order.CustomerName</td>
+                                        <td style="width: 200px;text-align:center;">
+                                            @order.CreatedOn.ToString("dd/MM/yyyy")
+                                        </td>
+                                        <td style="text-align:right; width: 200px;">@order.TotalQuantity</td>
+                                        <td style="text-align:right; width: 200px;"> @order.TotalPrice.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+                                        <td style="text-align:center; width: 150px;">@(Enum.GetName(order.Status)) </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6">No data to display</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/admin/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/admin/components/reportOrder.js"></script>
+}

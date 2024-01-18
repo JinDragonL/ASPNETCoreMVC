@@ -1,0 +1,157 @@
+.product {
+    padding: 10px;
+    transition: box-shadow 0.3s;
+    position: relative;
+    border: 1px solid #6C757D;
+    border-radius: 5px;
+}
+    .product:hover {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+        .product:hover .action {
+            display: block;
+            opacity: 0.7;
+        }
+
+.product__content {
+}
+    .product__content .product__title {
+        height: 55px;
+    }
+
+    .product__content .action {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000000;
+        opacity: 0;
+        transition: opacity 0.7s;
+    }
+
+    .product__content h4 a {
+        text-decoration: none;
+    }
+
+    .product__content h5 a {
+        text-decoration: none;
+    }
+
+    .product__content ul {
+        list-style: none;
+        padding-left: 0px;
+    }
+
+        .product__content ul li {
+            margin-right: 10px;
+        }
+    .product__content .prize {
+        margin-top: 5px;
+        background: #DDD;
+        box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.07);
+        display: inline-block;
+        font-family: "Lato",sans-serif;
+        height: 35px;
+        line-height: 35px;
+        padding: 0 15px;
+    }
+
+    .product__content .prize .orig {
+
+        text-align: center;
+        width: 100%;
+        font-weight: 600;
+        color: #0000ff;
+    }
+
+    .product__content .prize .old_prize {
+        text-decoration: line-through;
+    }
+
+.product__thumb {
+    position: relative;
+    text-align: center;
+}
+
+    .product__thumb .hot-label {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        background: #DDD;
+        padding: 4px;
+        font-size: 12px;
+    }
+
+    .product__thumb .img-book {
+        max-width: 210px;
+    }
+
+.add_to_links {
+    position: absolute;
+    top: 40%;
+    left: 35%;
+}
+
+    .add_to_links li {
+        width: 40px;
+        border: 1px solid #DDD;
+        border-radius: 50%;
+        text-align: center;
+    }
+
+        .add_to_links li:hover a {
+            font-weight: bold;
+            color: #bfff00;
+        }
+
+        .add_to_links li a {
+            color: #FFF;
+            font-weight: 600;
+            font-size: 25px;
+        }
+
+.cart-number {
+    font-size: 10px;
+    position: absolute;
+    bottom: 0px;
+    left: -4px;
+    background: #000;
+    width: 15px;
+    border-radius: 70%;
+    text-align: center;
+    opacity: 0.5;
+    color: #FFF;
+    font-weight: 600;
+}
+
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #6C757D;
+    border-color: #000;
+}
+
+.col-cart {
+    width: 120px;
+    vertical-align: middle;
+}
+
+.col-cart-action {
+    width: 20px;
+    vertical-align: middle;
+}
+.fw-bold a {
+    text-decoration: none;
+}
+.tooltip-inner{
+    background: none;
+}
+
+.disable-link {
+    pointer-events: none;
+    text-decoration: none;
+    cursor:not-allowed;
+    opacity: 0.7;
+}

@@ -1,0 +1,143 @@
+﻿@using System.Globalization;
+@using BookSale.Management.Application.DTOs.Book;
+@using BookSale.Management.Application.DTOs;
+@using BookSale.Management.Application.DTOs.User
+@model BookSale.Management.Application.DTOs.User.UserAddressDTO;
+
+@{
+   var lsAddress = ViewBag.AddressDTO as IEnumerable<UserAddressDTO>;
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Checkout</h2>
+    <div class="row">
+        <div class="col-6">
+            <div class="d-flex flex-row-reverse bd-highlight">
+                <button type="button" class="btn btn-light btn-sm" id="btn-address">Change Address</button>
+            </div>
+            <form asp-action="completecart" method="post">
+                <input type="hidden" name="Id" asp-for="Id" />
+                <input type="hidden" asp-for="OrderId" />
+                <div class="mb-3">
+                    <label for="firstName">Full Name</label>
+                    <input type="text" class="form-control" asp-for="Fullname" placeholder="Fullname" />
+                    <span asp-validation-for="Fullname"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="lastName">Phone</label>
+                    <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Phone" />
+                    <span asp-validation-for="PhoneNumber"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="city">Email</label>
+                    <input type="text" class="form-control" asp-for="Email" placeholder="Email" />
+                    <span asp-validation-for="Email"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" asp-for="Address" placeholder="Address" />
+                    <span asp-validation-for="Address"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="address">Payment Method</label> <br/>
+                    <input type="radio" asp-for="PaymentMethod" value="1" checked /> Cash
+                    <input type="radio" asp-for="PaymentMethod" value="2" /> Paypal
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Complete Purchase</button>
+            </form>
+
+        </div>
+        <div class="col-6">
+            <div>
+                @{
+                    double total = 0;
+                    IEnumerable<BookCartDTO> books = new List<BookCartDTO>();
+
+                    if (ViewBag.Books is not null)
+                    {
+                        books = ViewBag.Books as IEnumerable<BookCartDTO> ?? new List<BookCartDTO>();
+                    }
+                }
+                <div class="col-md-12 col-lg-12 order-md-last">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-primary">Your cart</span>
+                        <span class="badge bg-primary rounded-pill">@books.Sum(x => x.Quantity)</span>
+                    </h4>
+                    <ul class="list-group mb-3">
+                        @{
+                            foreach (var book in books)
+                            {
+                                <li class="list-group-item d-flex justify-content-between lh-sm">
+                                    <div>
+                                        <h6 class="my-0">@book.Title</h6>
+                                    </div>
+                                    <span class="text-muted">@(book.Price.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))) (@book.Quantity)</span>
+                                </li>
+
+                                total += book.Quantity * book.Price;
+                            }
+                        }
+                        @if (ViewBag.Books is null)
+                        {
+                            <li class="list-group-item d-flex justify-content-between lh-sm">
+                                No data
+                            </li>
+                        }
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Total (VND)</span>
+                            <strong>@(total.ToString("C", CultureInfo.GetCultureInfo("vi-VN")))</strong>
+                        </li>
+                    </ul>
+                    <div id="paypal-button-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-address" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Your Address</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+                        @{
+                            if (lsAddress is not null)
+                            {
+                                int index = 1;
+
+                                foreach (var address in lsAddress)
+                                {
+                                    <li class="list-group-item address"
+                                        data-id="@address.Id"
+                                        data-fullname="@address.Fullname"
+                                        data-phone="@address.PhoneNumber"
+                                        data-address="@address.Address"
+                                        title="<ul class='list-group'>
+                                                            <li class='list-group-item'><b>@address.Fullname</b></li>
+                                                            <li class='list-group-item'><b>@address.PhoneNumber</b></li>
+                                                            <li class='list-group-item'>@address.Address</li>
+                                                    </ul>" > <a href="#">Address @index</a></li>
+
+                                    index++;
+                                }
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AXtuXtSehx-tNWqVAfQIttso_Gb4RgIAJCQc1M4SajMzkYLFilh6zCmJ9zCo0zjCBR4AmAcV2iGLEqzl"></script>
+    <script src="~/js/components/checkout.js"></script>
+
+}

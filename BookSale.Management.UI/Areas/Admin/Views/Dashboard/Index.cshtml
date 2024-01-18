@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@await Html.PartialAsync("~/Areas/Admin/Views/Shared/_BreadScrum.cshtml")
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card  bg-light no-card-border">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="m-r-10">
+                            <img src="~/images/user/fe1dc019-9963-4415-a260-ad0cfaa2696b.png" alt="user" width="60" class="rounded-circle" />
+                        </div>
+                        <div>
+                            <h3 class="m-b-0">Welcome back!</h3>
+                            <span>@DateTime.Now.ToString("dddd, MMMM yyyy")</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <select id="ddl-genre" class="form-control mb-2">
+                        <option value="0">Please select</option>
+                        @{
+                            var genres = ViewBag.Genres as IEnumerable<SelectListItem>;
+
+                            foreach (var genre in genres)
+                            {
+                               <option value="@genre.Value">@genre.Text</option>
+                            }
+                        }
+                    </select>
+                    <div id="main" style="height: 300px;"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/admin/assets/libs/echarts/dist/echarts.min.js"></script>
+    <script src="~/admin/components/dashboard.js"></script>
+}

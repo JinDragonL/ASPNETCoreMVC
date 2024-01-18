@@ -1,0 +1,28 @@
+﻿@model BookSale.Management.Application.DTOs.Book.BookDTO
+@using System.Globalization;
+
+<div class="product">
+    <div class="product__thumb">
+        <a class="first__img" href="#">
+            <img src="~/images/book/@(Model.Id).png" alt="book image" height="300" class="img-book">
+        </a>
+        <span class="hot-label">BEST SALLER</span>
+    </div>
+    <div class="product__content mt-2">
+        <div class="product__title">
+            <h6>@Model.Title</h6>
+        </div>
+        <ul class="prize d-flex">
+            <li class="orig">@Model.Cost.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</li>
+            <!-- <li class="old_prize">$35.00</li> -->
+        </ul>
+        <div class="action">
+            <div class="actions_inner">
+                <ul class="add_to_links d-flex">
+                    <li><a class="cart" href="#"><i class="fa fa-eye"></i></a></li>
+                    <li><a class="wishlist btn-add-cart" data-code="@Model.Code" href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
