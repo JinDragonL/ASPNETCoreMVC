@@ -17,7 +17,6 @@ namespace BookSale.Management.DataAccess
             {
                 var appContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-                //appContext.Database.EnsureCreated();
                 await appContext.Database.MigrateAsync();
             }
         }
@@ -47,6 +46,8 @@ namespace BookSale.Management.DataAccess
                         {
                             UserName = defaultUser.Username,
                             Fullname = defaultUser.Username,
+                            Email = defaultUser.Email,
+                            NormalizedEmail = defaultUser.Email.ToUpper(),
                             IsActive = true,
                             AccessFailedCount = 0
                         };

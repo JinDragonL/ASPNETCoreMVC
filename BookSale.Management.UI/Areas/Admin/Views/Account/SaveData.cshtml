@@ -1,6 +1,5 @@
 ﻿@using System.Security.Claims;
 @model BookSale.Management.Application.DTOs.User.AccountDTO
-
 @{
     ViewData["Title"] = "Account Form";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -19,7 +18,14 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12 col-lg-6">
-                                @Html.Raw("<div asp-validation-summary='All' class='text-danger'></div>")
+                                @{
+                                    <ul class="list-group">
+                                        @foreach (var error in ViewData.ModelState.Values.SelectMany(x => x.Errors))
+                                        {
+                                            <li class="list-group-item text-danger font-italic">@Html.Raw(error.ErrorMessage)</li>
+                                        }
+                                    </ul>
+                                }
                                 <input type="hidden" asp-for="Id" />
                                 <div class="row">
                                     <div class="col-12">

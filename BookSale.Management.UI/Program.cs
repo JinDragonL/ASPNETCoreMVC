@@ -40,9 +40,9 @@ var app = builder.Build();
 
 app.UseSerilogRequestLogging();
 
-app.AutoMigration().GetAwaiter().GetResult();
+await app.AutoMigration();
 
-app.SeedData(builder.Configuration).GetAwaiter().GetResult();
+await app.SeedData(builder.Configuration);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

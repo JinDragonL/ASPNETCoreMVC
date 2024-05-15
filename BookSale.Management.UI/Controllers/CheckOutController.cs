@@ -40,7 +40,7 @@ namespace BookSale.Management.UI.Controllers
 
             IEnumerable<UserAddressDTO> addressDTOs = new List<UserAddressDTO>();
 
-            if (HttpContext.User.Identity.IsAuthenticated)
+            if (HttpContext.User.Identity!.IsAuthenticated)
             {
                 ViewBag.Books = await GetCartFromSessionAsync();
 
