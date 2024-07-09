@@ -1,11 +1,7 @@
-﻿using AutoMapper.Configuration.Conventions;
-using BookSale.Management.Application.Abstracts;
-using BookSale.Management.Application.DTOs;
+﻿using BookSale.Management.Application.Abstracts;
 using BookSale.Management.Application.Services;
 using BookSale.Management.Domain.Setting;
-using BookSale.Management.UI.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Drawing.Printing;
 
 namespace BookSale.Management.UI.Controllers
 {

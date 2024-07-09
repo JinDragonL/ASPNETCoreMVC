@@ -1,4 +1,5 @@
-﻿using DinkToPdf;
+﻿using BookSale.Management.Infrastruture.Abstract;
+using DinkToPdf;
 using DinkToPdf.Contracts;
 using System;
 using System.Collections.Generic;

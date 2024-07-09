@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Microsoft.AspNetCore.Builder;
+using BookSale.Management.Infrastruture.Abstract;
 
 namespace BookSale.Management.Infrastruture.Configuration
 {

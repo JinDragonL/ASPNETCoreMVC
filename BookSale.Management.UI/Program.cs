@@ -32,8 +32,8 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddreCAPTCHAV2(x =>
 {
-    x.SiteKey = "6LfwSjIpAAAAAEoxWZJVZHM9Ad3IIbRC5Z6uLH16";
-    x.SiteSecret = "6LfwSjIpAAAAAHV6hOyxqz65Xr00g7fEX61y3gpN";
+    x.SiteKey = "***";
+    x.SiteSecret = "***";
 });
 
 var app = builder.Build();

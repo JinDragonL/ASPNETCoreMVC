@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Reflection.Metadata.Ecma335;
 
 namespace BookSale.Management.Domain.Entities
 {

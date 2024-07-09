@@ -46,9 +46,9 @@
        @{
             var requestCulture = Context.Features.Get<IRequestCultureFeature>();
 
-            var options = (requestCulture.Provider as CookieRequestCultureProvider).Options;
+            var options = (requestCulture.Provider as CookieRequestCultureProvider)?.Options;
 
-            var cultureItems = options.SupportedCultures.Select(culture => new SelectListItem
+            var cultureItems = options?.SupportedCultures?.Select(culture => new SelectListItem
             {
                 Value = culture.Name,
                 Text = culture.Parent.DisplayName

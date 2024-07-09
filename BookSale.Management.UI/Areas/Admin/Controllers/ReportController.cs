@@ -1,6 +1,6 @@
 ﻿using BookSale.Management.Application.Abstracts;
 using BookSale.Management.Application.DTOs.Report;
-using BookSale.Management.Infrastruture.Services;
+using BookSale.Management.Infrastruture.Abstract;
 using BookSale.Management.UI.Ultility;
 using Microsoft.AspNetCore.Mvc;
 

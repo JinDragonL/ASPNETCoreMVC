@@ -36,11 +36,11 @@ namespace BookSale.Management.Application.Services
                 RecordsFiltered = totalRecords,
                 Data = orders.Select(x => new
                 {
-                    Id = x.Id,
-                    Code = x.Code,
-                    CreatedOn = x.CreatedOn,
-                    Fullname = x.Fullname,
-                    TotalPrice = x.TotalPrice,
+                    x.Id,
+                    x.Code,
+                    x.CreatedOn,
+                    x.Fullname,
+                    x.TotalPrice,
                     Status = Enum.GetName(typeof(StatusProcessing), x.Status),
                     PaymentMethod = Enum.GetName(typeof(PaymentMethod), x.PaymentMethod),
                 }).ToList()
