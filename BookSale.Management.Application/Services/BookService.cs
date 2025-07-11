@@ -90,7 +90,6 @@ namespace BookSale.Management.Application.Services
 
             return new ResponseModel
             {
-                Action = actionType,
                 Message = result ? successMessage : failureMessage,
                 Success = result,
             };

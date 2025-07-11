@@ -37,7 +37,7 @@ namespace BookSale.Management.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _authenticationService.CheckLogin(loginModel.Username, loginModel.Password, hasRemmeber: false);
+                var result = await _authenticationService.LoginAsync(loginModel.Username, loginModel.Password,loginModel.HasRemember);
 
                 if (result.Success)
                 {
