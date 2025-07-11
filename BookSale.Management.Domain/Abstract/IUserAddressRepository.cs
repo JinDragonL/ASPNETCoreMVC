@@ -4,7 +4,7 @@ namespace BookSale.Management.DataAccess.Repository
 {
     public interface IUserAddressRepository
     {
-        Task<IEnumerable<UserAddress>> GetAllAddressByUserAsync(string id);
-        Task SaveAsync(UserAddress userAddress);
+        Task<IEnumerable<UserAddress>> GetAllAddressByUser(string id);
+        Task Save(UserAddress userAddress);
     }
 }

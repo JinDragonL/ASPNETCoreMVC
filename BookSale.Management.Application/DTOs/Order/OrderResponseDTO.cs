@@ -2,7 +2,7 @@
 
 namespace BookSale.Management.Application.DTOs.Order
 {
-    public class OrderResponseDTO
+    public class OrderResponseDto
     {
         public string Id { get; set; }
         public string Code { get; set; }

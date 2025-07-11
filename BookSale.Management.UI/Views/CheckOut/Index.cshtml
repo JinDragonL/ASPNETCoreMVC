@@ -1,11 +1,9 @@
 ﻿@using System.Globalization;
 @using BookSale.Management.Application.DTOs.Book;
 @using BookSale.Management.Application.DTOs;
-@using BookSale.Management.Application.DTOs.User
-@model BookSale.Management.Application.DTOs.User.UserAddressDTO;
-
+@model UserAddressDto;
 @{
-   var lsAddress = ViewBag.AddressDTO as IEnumerable<UserAddressDTO>;
+   var lsAddress = ViewBag.AddressDTO as IEnumerable<UserAddressDto>;
 }
 
 <div class="container mt-5">
@@ -51,11 +49,11 @@
             <div>
                 @{
                     double total = 0;
-                    IEnumerable<BookCartDTO> books = new List<BookCartDTO>();
+                    IEnumerable<BookCartDto> books = new List<BookCartDto>();
 
                     if (ViewBag.Books is not null)
                     {
-                        books = ViewBag.Books as IEnumerable<BookCartDTO> ?? new List<BookCartDTO>();
+                        books = ViewBag.Books as IEnumerable<BookCartDto> ?? new List<BookCartDto>();
                     }
                 }
                 <div class="col-md-12 col-lg-12 order-md-last">
@@ -84,7 +82,7 @@
                             </li>
                         }
                         <li class="list-group-item d-flex justify-content-between">
-                            <span>Total (VND)</span>
+                            <span>Total (USD)</span>
                             <strong>@(total.ToString("C", CultureInfo.GetCultureInfo("vi-VN")))</strong>
                         </li>
                     </ul>
@@ -99,11 +97,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Your Address</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <ul class="list-group">
+                        <li class="list-group-item active">Address</li>
                         @{
                             if (lsAddress is not null)
                             {
@@ -138,6 +137,7 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=AXtuXtSehx-tNWqVAfQIttso_Gb4RgIAJCQc1M4SajMzkYLFilh6zCmJ9zCo0zjCBR4AmAcV2iGLEqzl"></script>
+    
     <script src="~/js/components/checkout.js"></script>
 
 }

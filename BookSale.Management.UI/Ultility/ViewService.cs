@@ -28,7 +28,7 @@ namespace BookSale.Management.UI.Ultility
 
                 if (!viewResult.Success)
                 {
-                    throw new Exception("Could not find template.");
+                    throw new Exception("Could not find email template.");
                 }
 
                 ViewContext viewContext = new ViewContext(

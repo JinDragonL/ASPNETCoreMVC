@@ -7,10 +7,10 @@ namespace BookSale.Management.Application.Abstracts
 {
     public interface IOrderService
     {
-        Task<ResponseDatatable<object>> GetByPaginationAsync(RequestDatatable request);
-        Task<IEnumerable<ChartOrderByGenreDTO>> GetChartDataByGenreAsync(int genreId);
-        Task<ReportOrderDTO> GetReportByIdAsync(string id);
-        Task<IEnumerable<ReportOrderResponseDTO>> GetReportOrderAsync(ReportOrderRequestDTO request);
-        Task<bool> SaveAsync(OrderRequestDTO order);
+        Task<ResponseDatatable<object>> GetByPagination(RequestDatatable request);
+        Task<IEnumerable<ChartOrderByGenreDto>> GetChartDataByGenreAsync(int genreId);
+        Task<ReportOrderDto> GetReportByIdAsync(string id);
+        Task<IEnumerable<ReportOrderResponseDto>> GetReportOrderAsync(ReportOrderRequestDto request);
+        Task<bool> SaveAsync(OrderRequestDto order);
     }
 }

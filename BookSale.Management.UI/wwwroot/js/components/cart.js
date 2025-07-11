@@ -89,14 +89,8 @@
                     if (response) {
                         self.closest('tr').remove();
                         calculateCartTotal();
-
-                        const amountItems = $('#tbody-cart tr').length - 1;
-                        $('.cart-number').text(amountItems);
+                        $('.cart-number').text($('#tbody-cart tr').length - 1);
                         showToaster('Success', 'Delete cart successful');
-
-                        if (!amountItems) {
-                            $('#btn-checkout').addClass('disable-link');
-                        }
                     }
                 }
             })

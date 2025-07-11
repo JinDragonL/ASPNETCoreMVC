@@ -1,22 +1,21 @@
 ﻿(function () {
 
-    const imgAvatar = document.getElementById('img-avatar');
-
     document.getElementById('Avatar').onchange = function () {
-        const input = this.files[0];
+        const input = document.getElementById('Avatar').files[0];
 
         if (input) {
-            imgAvatar.src = URL.createObjectURL(input);
+            document.getElementById('img-avatar').src = URL.createObjectURL(input);
         }
     }
 
-    imgAvatar.onerror = function () {
+    document.getElementById('img-avatar').onerror = function () {
         onErrorImage();
     }
 
     function onErrorImage() {
-        imgAvatar.src = "/images/no-image.png";
-        imgAvatar.alt = "no image";
+        const img = document.getElementById('img-avatar');
+        img.src = "/images/no-image.png";
+        img.alt = "no image";
     }
 
 })();

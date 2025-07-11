@@ -16,47 +16,56 @@ namespace BookSale.Management.Application.Services
             _signInManager = signInManager;
         }
 
-        public async Task<ResponseModel> CheckLogin(string username, string password, bool hasRemmeber)
+        public async Task<ResponseModel> LoginAsync(string username, string password, bool rememberMe)
         {
+            var signInResult = await _signInManager.PasswordSignInAsync(username, password, rememberMe, lockoutOnFailure: true);
+
             var user = await _userManager.FindByNameAsync(username);
 
-            if (user is null)
+            if (signInResult.IsLockedOut)
+            {
+                if (user?.LockoutEnd.HasValue == true)
+                {
+                    var remainningLockOut = user.LockoutEnd.Value - DateTimeOffset.UtcNow;
+
+                    var minutes = Math.Max(1, Math.Round(remainningLockOut.TotalMinutes));
+
+                    return new ResponseModel
+                    {
+                        Success = false,
+                        Message = $"Your account has been locked, Please try again in {minutes}"
+                    };
+                }
+                else
+                {
+                    return new ResponseModel
+                    {
+                        Success = false,
+                        Message = $"Your account has been locked"
+                    };
+                }
+            }
+
+            if (!signInResult.Succeeded)
             {
                 return new ResponseModel
                 {
-                    Message = "Username or password is invalid"
+                    Success = false,
+                    Message = "Username or password is incorrect"
                 };
             }
 
-            var result = await _signInManager.PasswordSignInAsync(user, password, isPersistent: hasRemmeber, lockoutOnFailure: true);
+            var accessFailCount = await _userManager.GetAccessFailedCountAsync(user);
 
-            if (result.IsLockedOut)
-            {
-                var remainingLockout = user.LockoutEnd.Value - DateTimeOffset.UtcNow;
-
-                return new ResponseModel
-                {
-                    Message = $"Account is locked out. Please try again in {Math.Round(remainingLockout.TotalMinutes)} minutes"
-                };
-            }
-
-            if (!result.Succeeded)
-            {
-                return new ResponseModel
-                {
-                    Message = "Username or password is invalid"
-                };
-            }
-
-
-            if (user.AccessFailedCount > 0)
+            if (accessFailCount > 0)
             {
                 await _userManager.ResetAccessFailedCountAsync(user);
             }
 
             return new ResponseModel
             {
-                Status = true
+                Success = true,
+                Message = "Login Successful"
             };
         }
     }

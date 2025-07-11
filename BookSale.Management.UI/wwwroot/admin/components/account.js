@@ -26,23 +26,27 @@
 
     $(document).on('click', '.btn-delete', function () {
 
-        const key = $(this).closest('span').data('key');
+        const self = $(this);
 
-        $.ajax({
-            url: `/admin/account/delete/${key}`,
-            dataType: 'json',
-            method: 'POST',
-            success: function (response) {
+        const key = self.closest('span').data('key');
 
-                if (!response) {
-                    showToaster("Error", "Delete failed.");
-                    return;
-                }
-                
-                $(elementName).DataTable().ajax.reload();
-                showToaster("Success", "Delete successful");
+        fetch(`account/delete?id=${key}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': $('input[name="_RequestVerificationToken"]').val()
             }
         })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+
+                //should check if successful
+                self.closest('tr').remove();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
 
     });
 

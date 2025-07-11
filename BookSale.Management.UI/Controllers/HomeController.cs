@@ -8,11 +8,13 @@ namespace BookSale.Management.UI.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ILogger<HomeController> _logger;
         private readonly IBookService _bookService;
 
-        public HomeController(IBookService bookService)
+        public HomeController(ILogger<HomeController> logger, IBookService bookService)
         {
             _bookService = bookService;
+            _logger = logger;
         }
 
         public async Task<IActionResult> Index()

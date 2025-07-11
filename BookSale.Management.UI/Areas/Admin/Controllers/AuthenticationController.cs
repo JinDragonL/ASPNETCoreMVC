@@ -1,5 +1,4 @@
 ﻿using BookSale.Management.Application.Abstracts;
-using BookSale.Management.Application.Services;
 using BookSale.Management.Domain.Entities;
 using BookSale.Management.UI.Areas.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -39,27 +38,28 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var errors = ModelState.Values.SelectMany(x => x.Errors)
-                                                .Select(x => x.ErrorMessage).ToList();
+                ModelState.AddModelError("error", "Invalid Model");
 
-                ViewBag.Error = string.Join("<br/>", errors);
-                return View();
+                return View(loginModel);
             }
 
-            var result = await _authenticationService.CheckLogin(loginModel.Username, loginModel.Password, loginModel.HasRemember);
+            var result = await _authenticationService.LoginAsync(loginModel.Username, loginModel.Password, loginModel.HasRemember);
 
-            if (result.Status)
-                return RedirectToAction("Index", "Dashboard");
+            if (!result.Success)
+            {
+                ModelState.AddModelError("error", result.Message);
+            }
 
-            ViewBag.Error = result.Message;
-
-            return View(loginModel);
+            return RedirectToAction("Index", "Dashboard");
         }
 
-        public async Task<IActionResult> Logout()
+        [HttpGet]
+        public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
+
             return View("Login");
         }
+
     }
 }

@@ -6,13 +6,21 @@ namespace BookSale.Management.UI.Ultility
     {
         public static void Set<T>(this ISession session, string key, T value)
         {
-            session.SetString(key, JsonConvert.SerializeObject(value));
+            if (string.IsNullOrEmpty(key))
+                throw new ArgumentException("Key cannot be null or empty", nameof(key));
+
+            var serializedValue = JsonConvert.SerializeObject(value);
+            session.SetString(key, serializedValue);
         }
 
         public static T? Get<T>(this ISession session, string key)
         {
+            if (string.IsNullOrEmpty(key))
+                return default(T);
+
             var value = session.GetString(key);
-            return value == null ? default : JsonConvert.DeserializeObject<T>(value);
+
+            return JsonConvert.DeserializeObject<T>(value);
         }
     }
 }

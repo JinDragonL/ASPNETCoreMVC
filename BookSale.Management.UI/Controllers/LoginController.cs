@@ -4,8 +4,6 @@ using BookSale.Management.Domain.Entities;
 using BookSale.Management.UI.Areas.Admin.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Owl.reCAPTCHA;
-using Owl.reCAPTCHA.v2;
 using System.Security.Claims;
 
 namespace BookSale.Management.UI.Controllers
@@ -15,19 +13,16 @@ namespace BookSale.Management.UI.Controllers
         private readonly IAuthenticationService _authenticationService;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IreCAPTCHASiteVerifyV2 _siteVerify;
         private readonly IUserStore<ApplicationUser> _userStore;
         public LoginController(IAuthenticationService authenticationService, 
             SignInManager<ApplicationUser> signInManager,
             IUserStore<ApplicationUser> userStore,
-            UserManager<ApplicationUser> userManager,
-            IreCAPTCHASiteVerifyV2 siteVerify)
+            UserManager<ApplicationUser> userManager)
         {
             _authenticationService = authenticationService;
             _signInManager = signInManager;
             _userStore = userStore;
             _userManager = userManager;
-            _siteVerify = siteVerify;
         }
 
         public IActionResult Index(string returnUrl)
@@ -38,31 +33,13 @@ namespace BookSale.Management.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(LoginSiteModel loginModel)
+        public async Task<IActionResult> Index(LoginModel loginModel)
         {
-            if(string.IsNullOrEmpty(loginModel.Captcha))
-            {
-                ModelState.AddModelError("error", "Invalid catcha");
-                return View(loginModel);
-            }
-
-            var response = await _siteVerify.Verify(new reCAPTCHASiteVerifyRequest
-            {
-                Response = loginModel.Captcha,
-                RemoteIp = HttpContext.Connection.RemoteIpAddress.ToString()
-            });
-
-            if(!response.Success)
-            {
-                ModelState.AddModelError("error", "Invalid catcha");
-                return View(loginModel);
-            }
-
             if (ModelState.IsValid)
             {
                 var result = await _authenticationService.CheckLogin(loginModel.Username, loginModel.Password, hasRemmeber: false);
 
-                if (result.Status)
+                if (result.Success)
                 {
                     string returnUrl = loginModel.ReturnUrl;
 
@@ -184,13 +161,5 @@ namespace BookSale.Management.UI.Controllers
                     $"override the external login page in /Areas/Identity/Pages/Account/ExternalLogin.cshtml");
             }
         }
-
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-
-            return View("Index");
-        }
     }
 }
-

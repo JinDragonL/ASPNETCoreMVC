@@ -27,16 +27,16 @@ namespace BookSale.Management.Application.Services
             _imageService = imageService;
         }
 
-        public async Task<ResponseDatatable<BookDTO>> GetBooksByPaginationAsync(RequestDatatable request)
+        public async Task<ResponseDatatable<BookDto>> GetBooksByPaginationAsync(RequestDatatable request)
         {
             int totalRecords = 0;
-            IEnumerable<BookDTO> books;
+            IEnumerable<BookDto> books;
 
-            (books, totalRecords) = await _unitOfWork.BookRepository.GetBooksByPaginationAsync<BookDTO>(request.SkipItems,
+            (books, totalRecords) = await _unitOfWork.BookRepository.GetBooksByPagination<BookDto>(request.SkipItems,
                                                                                                     request.PageSize,
                                                                                                     request.Keyword);
 
-            return new ResponseDatatable<BookDTO>
+            return new ResponseDatatable<BookDto>
             {
                 Draw = request.Draw,
                 RecordsTotal = totalRecords,
@@ -75,9 +75,9 @@ namespace BookSale.Management.Application.Services
                 book.IsActive = bookVM.IsActive;
             }
 
-            var result = await _unitOfWork.BookRepository.SaveAsync(book);
+            var result = await _unitOfWork.BookRepository.Save(book);
 
-            await _unitOfWork.SaveChangeAsync();
+            await _unitOfWork.Commit();
 
             if(result)
             {
@@ -92,7 +92,7 @@ namespace BookSale.Management.Application.Services
             {
                 Action = actionType,
                 Message = result ? successMessage : failureMessage,
-                Status = result,
+                Success = result,
             };
         }
 
@@ -115,19 +115,24 @@ namespace BookSale.Management.Application.Services
             return newCode;
         }
 
-        public async Task<BookForSiteDTO> GetBooksForSiteAsync(int genreId, int pageIndex, int pageSize = 10)
+        public async Task<BookForSiteDto> GetBooksForSiteAsync(int genreId, int pageIndex, int pageSize = 10)
         {
             var (books, totalRecords) = await _unitOfWork.BookRepository.GetBooksForSiteAsync(genreId, pageIndex, pageSize);    
 
-            var bookDTOs = _mapper.Map<IEnumerable<BookDTO>>(books);
+            if (!books.Any())
+            {
+                return new BookForSiteDto();
+            }
+
+            var bookDTOs = _mapper.Map<IEnumerable<BookDto>>(books);
 
             int currentDisplayingItems = totalRecords - (pageIndex * pageSize) <= 0 ? totalRecords : pageIndex * pageSize;
 
             bool isDisableButton = totalRecords - (pageIndex * pageSize) <= 0 ? true : false;
 
-            double progressingValue = totalRecords == 0 ? 0 : (pageIndex * pageSize) * 100 / totalRecords;
+            double progressingValue = (pageIndex * pageSize) * 100 / totalRecords;
 
-            return new BookForSiteDTO { 
+            return new BookForSiteDto { 
                 Books = bookDTOs,
                 CurrentRecord = currentDisplayingItems,
                 IsDisable = isDisableButton,
@@ -136,22 +141,13 @@ namespace BookSale.Management.Application.Services
             };
         }
 
-        public async Task<IEnumerable<BookCartDTO>> GetBooksByListCodeAsync(string[] codes)
+        public async Task<IEnumerable<BookCartDto>> GetBooksByListCodeAsync(string[] codes)
         {
             var books = await _unitOfWork.BookRepository.GetBooksByListCodeAsync(codes);
 
-            var result = _mapper.Map<IEnumerable<BookCartDTO>>(books);
+            var result = _mapper.Map<IEnumerable<BookCartDto>>(books);
 
             return result;
-        }
-
-        public async Task DeleteAsync(string code)
-        {
-            var book = await _unitOfWork.BookRepository.GetBooksByCodeAsync(code);
-
-            book.IsActive = false;
-
-            await _unitOfWork.SaveChangeAsync();
         }
     }
 }

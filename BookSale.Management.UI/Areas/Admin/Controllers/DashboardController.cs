@@ -1,5 +1,6 @@
 ﻿using BookSale.Management.Application.Abstracts;
 using BookSale.Management.UI.Ultility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookSale.Management.UI.Areas.Admin.Controllers
@@ -13,7 +14,7 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
             _genreService = genreService;
         }
 
-        [Breadscrumb("Dashboard")]
+        [Breadcrumb("", "Dashboard", false)]
         public async Task<IActionResult> IndexAsync()
         {
             var genres = await _genreService.GetGenresForDropdownlistAsync();

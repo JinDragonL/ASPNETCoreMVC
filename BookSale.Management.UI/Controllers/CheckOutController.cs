@@ -1,8 +1,8 @@
 ﻿using BookSale.Management.Application.Abstracts;
+using BookSale.Management.Application.DTOs;
 using BookSale.Management.Application.DTOs.Book;
 using BookSale.Management.Application.DTOs.Cart;
 using BookSale.Management.Application.DTOs.Order;
-using BookSale.Management.Application.DTOs.User;
 using BookSale.Management.Application.Services;
 using BookSale.Management.Domain.Enums;
 using BookSale.Management.Domain.Setting;
@@ -36,17 +36,17 @@ namespace BookSale.Management.UI.Controllers
         }
         public async Task<IActionResult> Index(string returnUrl)
         {
-            UserAddressDTO addressDTO = new UserAddressDTO();
+            UserAddressDto addressDTO = new UserAddressDto();
 
-            IEnumerable<UserAddressDTO> addressDTOs = new List<UserAddressDTO>();
+            IEnumerable<UserAddressDto> addressDTOs = new List<UserAddressDto>();
 
-            if (HttpContext.User.Identity!.IsAuthenticated)
+            if (HttpContext.User.Identity.IsAuthenticated)
             {
                 ViewBag.Books = await GetCartFromSessionAsync();
 
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-                addressDTOs = await _userAddressService.GetUserAddressListForSiteAsync(userId);
+                addressDTOs = await _userAddressService.GetUserAddressListForSite(userId);
                 ViewBag.AddressDTO = addressDTOs;
             }
             else
@@ -63,7 +63,7 @@ namespace BookSale.Management.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CompleteCart(UserAddressDTO userAddressDTO)
+        public async Task<IActionResult> CompleteCart(UserAddressDto userAddressDTO)
         {
             string codeOrder = $"ORDER_{DateTime.Now.ToString("ddMMyyyyhhmmss")}";
 
@@ -77,7 +77,7 @@ namespace BookSale.Management.UI.Controllers
 
                 var addressId = await _userAddressService.SaveAsync(userAddressDTO);
 
-                var cart = new CartRequestDTO
+                var cart = new CartRequestDto
                 {
                     CreatedOn = DateTime.Now,
                     Code = $"CART_{DateTime.Now.ToString("ddMMyyyyhhmmss")}",
@@ -89,7 +89,7 @@ namespace BookSale.Management.UI.Controllers
 
                 if(cartResult)
                 {
-                    var order = new OrderRequestDTO
+                    var order = new OrderRequestDto
                     {
                         Books = books.ToList(),
                         CreatedOn = DateTime.Now,
@@ -109,7 +109,7 @@ namespace BookSale.Management.UI.Controllers
                         var emailInfo = new EmailSetting
                         {
                             Name = "Mr Test",
-                            To = "****@gmail.com",
+                            To = "giacmonghuthuc@gmail.com",
                             Subject = "Your order is be processing",
                             Content = @$"<h2>Checkout Complete</h2>
                                     <p style='color:red;'>Thanks for your order! Your order number is: {codeOrder}</p>"
@@ -135,9 +135,9 @@ namespace BookSale.Management.UI.Controllers
             return View();
         }
 
-        private async Task<IEnumerable<BookCartDTO>> GetCartFromSessionAsync()
+        private async Task<IEnumerable<BookCartDto>> GetCartFromSessionAsync()
         {
-            List<BookCartDTO> bookCartDTOs = new List<BookCartDTO>();
+            List<BookCartDto> bookCartDTOs = new List<BookCartDto>();
 
             var carts = GetSessionCart();
 

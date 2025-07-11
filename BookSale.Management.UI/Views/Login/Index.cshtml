@@ -1,14 +1,13 @@
-﻿@model BookSale.Management.UI.Areas.Admin.Models.LoginSiteModel
+﻿@model BookSale.Management.UI.Areas.Admin.Models.LoginModel
 
 <div class="row mt-4">
     <div class="col-md-4 offset-md-3">
         <div class="card">
-            <form asp-controller="Login" method="post" asp-antiforgery="true" >
+            <form asp-controller="Login" method="post" asp-antiforgery="true">
                 <div class="card-body">
                     <h3>Login</h3>
-                    @* <div asp-validation-summary="All" class="text-danger"></div> *@
-                    <input type="hidden"  asp-for="ReturnUrl" />
-                    <input type="hidden"  asp-for="Captcha" />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <input type="hidden" value="@ViewBag.ReturnUrl" asp-for="ReturnUrl"/>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
                         <input type="text" class="form-control" asp-for="Username">
@@ -17,30 +16,63 @@
                         <label for="exampleInputPassword1" class="form-label">Password</label>
                         <input type="password" class="form-control" asp-for="Password">
                     </div>
-                    <div id="recaptcha"></div>
-                    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                     <hr />
                     <div class="mb-3">
                         <a href="/login/external?provider=Google" class="btn btn-danger">Google</a>
                         <a href="/login/external?provider=Facebook" class="btn btn-primary">Facebook</a>
+                        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+                        </fb:login-button>
                     </div>
                 </div>
             </form>
+
         </div>
+       
     </div>
 </div>
 
 @section Scripts {
-    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer> </script>
-    <script src="~/js/components/login.js"></script>
     <script>
-        var onloadCallback = function () {
-            grecaptcha.render('recaptcha', {
-                'sitekey': '6LfwSjIpAAAAAEoxWZJVZHM9Ad3IIbRC5Z6uLH16',
-                'callback': function (response) {
-                    $('#Captcha').val(response);
-                }
+        function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            if (response.status === 'connected') {
+                testAPI();
+            } else {
+                document.getElementById('status').innerHTML = 'Please log ' +
+                    'into this webpage.';
+            }
+        }
+
+
+        function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        }
+
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '685523913561890',
+                cookie: true,
+                xfbml: true,
+                version: 'v12.0'
+            });
+
+
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
             });
         };
+
+        function testAPI() {
+            FB.api('/me', { fields: 'email, name' }, function (response) {
+                console.log('Successful login for: ' + response.name);
+            });
+        }
     </script>
+
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 }

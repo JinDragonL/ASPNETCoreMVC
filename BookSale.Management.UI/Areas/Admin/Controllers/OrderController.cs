@@ -14,7 +14,7 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
             _orderService = orderService;
         }
 
-        [Breadscrumb("Order List", "System")]
+        [Breadcrumb("System", "Order List")]
         public IActionResult Index()
         {
             return View();
@@ -23,7 +23,7 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> GetByPagination(RequestDatatable requestDatatable)
         {
-            var data = await _orderService.GetByPaginationAsync(requestDatatable);
+            var data = await _orderService.GetByPagination(requestDatatable);
 
             return Json(data);
         }

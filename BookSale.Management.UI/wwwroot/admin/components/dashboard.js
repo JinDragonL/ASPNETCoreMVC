@@ -23,39 +23,25 @@
                     return;
                 }
 
-                const colors = ['#670e94', '#f0d917', '#f9f962', '#000080', '#00c3e3', '#e52b50'];
+                const colors = ['#670e94', '#f0d917', '#00c3e3', '#f9f962', '#000080', '#e52b50'];
 
                 const result = response.map((item, index) => {
                     return { ...item, itemStyle: { color: colors[index] } }
                 });
 
-                intialChartOrder(result, genreId);
+                intialChartOrder(result);
             }
         });
     }
 
-    function intialChartOrder(dataSource, genreId) {
-
-        genreId = parseInt(genreId);
-
-        let options = {
-            legend: {
-                show: true,
-            },
-        };
-
-        myChart.setOption(options);
-
-       options = {
+    function intialChartOrder(dataSource) {
+        var option = {
             title: {
                 text: 'Order By Genre',
                 left: 'center'
             },
             tooltip: {
-                trigger: 'item',
-                formatter: function (params) {
-                    return `${params.data.value} ${(genreId ? ' products' : ' orders')}`;
-                }
+                trigger: 'item'
             },
             legend: {
                 orient: 'vertical',
@@ -71,13 +57,7 @@
             ]
         };
 
-        if (genreId) {
-            options.legend = {
-                show: false
-            }
-        }
-
-        myChart.setOption(options);
+        myChart.setOption(option);
     }
 
     function registerEvents() {
@@ -86,5 +66,7 @@
             loadDataChartOrder();
         });
     }
+
+
 });
 

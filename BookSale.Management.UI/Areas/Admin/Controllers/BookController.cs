@@ -10,31 +10,36 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
     public class BookController : BaseController
     {
         private readonly IBookService _bookService;
+        private readonly IGenreService _genreService;
 
-        public BookController(IBookService bookService)
+        public BookController(IBookService bookService, IGenreService genreService)
         {
             _bookService = bookService;
+            _genreService = genreService;
         }
 
-        [Breadscrumb("Book List", "Application")]
+        [Breadcrumb("Application", "Book List")]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        [Breadscrumb("Book Form", "Application")]
+        [Breadcrumb("Application", "Book Form")]
         public async Task<IActionResult> SaveData(int id)
         {
             var bookVM = new BookViewModel();
 
-            string code = await _bookService.GenerateCodeAsync();
-            bookVM.Code = code;
+            //var genres = await _genreService.GetGenresForDropdownlistAsync();
+            //ViewBag.Genres = genres;
+
+            //string code = await _bookService.GenerateCodeAsync();
+            //bookVM.Code = code;
             
-            if (id != 0)
-            {
-                bookVM = await _bookService.GetBooksByIdAsync(id);
-            }
+            //if (id != 0)
+            //{
+            //    bookVM = await _bookService.GetBooksByIdAsync(id);
+            //}
 
             return View(bookVM);
         }
@@ -48,7 +53,7 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
             {
                 var result = await _bookService.SaveAsync(bookViewModel);
 
-                if (result.Status)
+                if (result.Success)
                 {
                     return RedirectToAction("", "book");
                 }
@@ -77,14 +82,6 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
             var result = await _bookService.GenerateCodeAsync();
 
             return Json(result);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(string code)
-        {
-            await _bookService.DeleteAsync(code);
-
-            return Json(true);
         }
     }
 }

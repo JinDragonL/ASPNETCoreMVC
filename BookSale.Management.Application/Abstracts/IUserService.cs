@@ -1,13 +1,14 @@
 ﻿using BookSale.Management.Application.DTOs;
-using BookSale.Management.Application.DTOs.User;
+using BookSale.Management.Domain.Entities;
 
 namespace BookSale.Management.Application.Abstracts
 {
     public interface IUserService
     {
-        Task<bool> DeleteAsync(string id);
-        Task<AccountDTO> GetUserByIdAsync(string id);
-        Task<ResponseDatatable<UserModel>> GetUserByPaginationAsync(RequestDatatable request);
-        Task<ResponseModel> SaveAsync(AccountDTO accountDTO);
+        Task<ResponseModel> CreateAsync(ApplicationUser user, string roleName);
+        Task<ResponseModel> DeleteAsync(string id);
+        Task<ResponseModel> EditAsync(ApplicationUser applicationUser);
+        Task<ApplicationUser> GetByIdAsync(string id);
+        Task<ResponseDatatable<UserModel>> GetUserByPagination(RequestDatatable request);
     }
 }

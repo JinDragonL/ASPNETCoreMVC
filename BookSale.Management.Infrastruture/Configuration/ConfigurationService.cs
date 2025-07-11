@@ -15,9 +15,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Serilog;
-using Microsoft.AspNetCore.Builder;
-using BookSale.Management.Infrastruture.Abstract;
 
 namespace BookSale.Management.Infrastruture.Configuration
 {
@@ -62,6 +59,7 @@ namespace BookSale.Management.Infrastruture.Configuration
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.AddTransient<IPDFService, PDFService>();
             services.AddTransient<IExcelHandler, ExcelHandler>();
+            
 
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IUserService, UserService>();
@@ -71,6 +69,7 @@ namespace BookSale.Management.Infrastruture.Configuration
             services.AddTransient<IUserAddressService, UserAddressService>();
             services.AddTransient<ICartService, CartService>();
             services.AddTransient<IOrderService, OrderService>();
+            
         }
 
         public static void AddAutoMapper(this IServiceCollection services)
@@ -87,13 +86,13 @@ namespace BookSale.Management.Infrastruture.Configuration
                    .AddGoogle(options =>
                    {
                        IConfigurationSection googleAuthNSection = configuration.GetSection("Authentication:Google");
-                       options.ClientId = googleAuthNSection["ClientId"];
-                       options.ClientSecret = googleAuthNSection["ClientSecret"];
+                       options.ClientId = googleAuthNSection["ClientId"]!;
+                       options.ClientSecret = googleAuthNSection["ClientSecret"]!;
                    }).AddFacebook(options =>
                    {
                        IConfigurationSection fbAuthNSection = configuration.GetSection("Authentication:Facebook");
-                       options.AppId = fbAuthNSection["AppId"];
-                       options.AppSecret = fbAuthNSection["AppSecret"];
+                       options.AppId = fbAuthNSection["AppId"]!;
+                       options.AppSecret = fbAuthNSection["AppSecret"]!;
                    });
 
             services.AddAuthorization(options =>
@@ -102,21 +101,6 @@ namespace BookSale.Management.Infrastruture.Configuration
             });
         }
 
-        public static void AddSerilog(this WebApplicationBuilder builder)
-        {
-            Log.Logger = new LoggerConfiguration()
-                                .MinimumLevel.Information()
-                                .Enrich.FromLogContext()
-                                .WriteTo.Console()
-                                .WriteTo.File(
-                                   System.IO.Path.Combine("LogFiles",  "log.txt"),
-                                   rollingInterval: RollingInterval.Day,
-                                   fileSizeLimitBytes: 10 * 1024 * 1024, //10mb
-                                   retainedFileCountLimit: 2
-                                 )
-                                .CreateLogger(); 
-
-            builder.Host.UseSerilog();
-        }
+        
     }
 }

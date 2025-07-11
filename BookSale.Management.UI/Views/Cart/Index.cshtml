@@ -1,10 +1,10 @@
 ﻿@using System.Globalization;
-@model IEnumerable<BookSale.Management.Application.DTOs.Book.BookCartDTO>
+@model IEnumerable<BookSale.Management.Application.DTOs.Book.BookCartDto>
 
 <div class="row mt-5">
     <div class="d-flex flex-row-reverse">
         <button type="button" id="btn-save-cart" class="btn btn-primary"><i class="fa fa-floppy-o"></i> &nbsp; Save</button> &nbsp;
-        <a href="/checkout?returnUrl=/checkout" id="btn-checkout" class="btn btn-danger @(Model is not null ? "" : "disable-link")"><i class="fa fa-floppy-o"></i> &nbsp; Check Out</a>
+         <a href="/checkout?returnUrl=/checkout" class="btn btn-danger @(Model is not null ? "" : "disable-link")"><i class="fa fa-floppy-o"></i> &nbsp; Check Out</a>
     </div>
     <div class="col-12">
         <table class="table table-bordered mt-3">
@@ -32,7 +32,7 @@
                                 <td style="width:100px" class="text-center"><img src="/images/book/@(book.Id).png" height="150" /></td>
                                 <td>@book.Title</td>
                                 <td class="col-cart"><input type="number" class="form-control txt-quantity-cart"  value="@book.Quantity" /></td>
-                                <td class="col-cart txt-price">@book.Price.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+                                <td class="col-cart txt-price">@book.Title</td>
                                 <td class="col-cart txt-total">@((book.Quantity * book.Price).ToString("C", CultureInfo.GetCultureInfo("vi-VN")))</td>
                                 <td class="text-center col-cart-action">
                                     <a href="#" class="btn-delete-cart"> <img src="~/images/trash.png" height="25" /></a>

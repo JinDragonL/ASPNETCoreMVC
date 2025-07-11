@@ -15,7 +15,7 @@ namespace BookSale.Management.UI.Controllers
             _bookService = bookService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> IndexAsync()
         {
             var carts = GetSessionCart();
 
@@ -81,9 +81,30 @@ namespace BookSale.Management.UI.Controllers
         [HttpPost]
         public IActionResult Update([FromBody] List<CartModel> books)
         {
-            SetSessionCart(books);
+            try
+            {
+                var carts = GetSessionCart();
 
-            return Json(true);
+                if (carts is null)
+                    return Json(true);
+
+                carts = carts.Select(item =>
+                {
+                    var quantity = books.Single(x => x.BookCode == item.BookCode)?.Quantity;
+
+                    item.Quantity = quantity ?? 0;
+
+                    return item;
+                }).ToList();
+
+                SetSessionCart(carts);
+
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                return Json(false);
+            }
         }
 
         [HttpPost]

@@ -1,6 +1,6 @@
 ﻿namespace BookSale.Management.Application.DTOs.Genre
 {
-    public class GenreSiteDTO
+    public class GenreSiteDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

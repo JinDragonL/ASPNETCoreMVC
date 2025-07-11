@@ -1,6 +1,6 @@
 ﻿namespace BookSale.Management.Application.DTOs.Book
 {
-    public class BookDTO
+    public class BookDto
     {
         public int Id { get; set; }
         public string Code { get; set; }

@@ -15,7 +15,7 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
             _genreService = genreService;
         }
 
-        [Breadscrumb("Genre List", "Application")]
+        [Breadcrumb("Application", "Genre List")]
         public IActionResult Index()
         {
             var genreMd = new GenreViewModel();
@@ -26,13 +26,13 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> GetById(int id)
         {
-            return Json(await _genreService.GetByIdAsync(id));
+            return Json(await _genreService.GetById(id));
         }
 
         [HttpPost]
         public async Task<IActionResult> GetGenrePagination(RequestDatatable requestDatatable)
         {
-            var result = await _genreService.GetGenreByPaginationAsync(requestDatatable);
+            var result = await _genreService.GetGenreByPagination(requestDatatable);
             return Json(result);
         }
 

@@ -14,10 +14,10 @@ namespace BookSale.Management.DataAccess.Abstract
         ICartRepository CartRepository { get; }
 
         Task BeginTransaction();
-        Task SaveChangeAsync();
-        Task CommitTransactionAsync();
+        Task Commit();
+        Task CommitTransaction();
         void Dispose();
-        Task RollbackTransactionAsync();
+        Task RollbackTransaction();
         DbSet<T> Table<T>() where T : class;
     }
 }

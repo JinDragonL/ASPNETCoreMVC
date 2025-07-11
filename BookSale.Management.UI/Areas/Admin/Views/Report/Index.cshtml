@@ -1,12 +1,12 @@
 ﻿@using BookSale.Management.Application.DTOs.Report
-@model IEnumerable<ReportOrderResponseDTO>
+@model IEnumerable<ReportOrderResponseDto>
 @using BookSale.Management.Domain.Enums
 @using System.Globalization;
 @{
     ViewData["Title"] = "Account List";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 
-    var filters = ViewBag.FilterData as ReportOrderRequestDTO;
+    var filters = ViewBag.FilterData as ReportOrderRequestDto;
 }
 
 <link href="~/admin/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" />
@@ -84,7 +84,6 @@
         <div class="col-md-9 col-lg-9">
             <div class="table-responsive">
                 <div class="d-flex no-block align-items-center">
-                    <h3>Order Report</h3>
                     <div class="ml-auto">
                         <button class="btn waves-effect btn-danger" id="btn-export"><i class="ti-save"></i> &nbsp; Export</button>
                     </div>

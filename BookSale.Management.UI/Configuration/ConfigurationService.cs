@@ -9,10 +9,10 @@ namespace BookSale.Management.UI.Configuration
         public static void RegisterGlobalizationAndLocalization(this IServiceCollection services)
         {
             var supportedCultures = new[]
-            {
+{
                 new CultureInfo("en-US"),
                 new CultureInfo("vi-VN")
-            };
+};
 
             var localizationOptions = new RequestLocalizationOptions
             {
@@ -32,8 +32,8 @@ namespace BookSale.Management.UI.Configuration
                     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                     .AddDataAnnotationsLocalization(options => {
                         options.DataAnnotationLocalizerProvider = (type, factory) =>
-                            factory.Create(typeof(Resource));
-                        });
+                factory.Create(typeof(Resource));
+                    });
 
         }
     }

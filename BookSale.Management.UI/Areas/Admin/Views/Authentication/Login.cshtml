@@ -24,13 +24,13 @@
                 <div id="loginform">
                     <div class="logo">
                         <span class="db">
-                            <img src="~/admin/images/logo.png" alt="logo" height="50" />
+                            <img src="~/admin/images/logo.png" alt="logo" height="80" />
                         </span>
                         <h3 class="font-medium m-b-20">Sign In</h3>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <form class="form-horizontal m-t-20" id="loginform" method="post" asp-antiforgery="true"
+                            <form class="form-horizontal m-t-20" id="loginform" method="post"
                                             asp-controller="authentication" asp-action="login">
                                 <span class="text-danger">@TempData["errors"]</span>
                                 @Html.ValidationSummary(true)

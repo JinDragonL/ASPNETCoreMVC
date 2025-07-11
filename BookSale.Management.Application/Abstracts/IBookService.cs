@@ -7,12 +7,11 @@ namespace BookSale.Management.Application.Services
 {
     public interface IBookService
     {
-        Task DeleteAsync(string code);
         Task<string> GenerateCodeAsync(int number = 10);
         Task<BookViewModel> GetBooksByIdAsync(int id);
-        Task<IEnumerable<BookCartDTO>> GetBooksByListCodeAsync(string[] codes);
-        Task<ResponseDatatable<BookDTO>> GetBooksByPaginationAsync(RequestDatatable request);
-        Task<BookForSiteDTO> GetBooksForSiteAsync(int genreId, int pageIndex, int pageSize = 10);
+        Task<IEnumerable<BookCartDto>> GetBooksByListCodeAsync(string[] codes);
+        Task<ResponseDatatable<BookDto>> GetBooksByPaginationAsync(RequestDatatable request);
+        Task<BookForSiteDto> GetBooksForSiteAsync(int genreId, int pageIndex, int pageSize = 10);
         Task<ResponseModel> SaveAsync(BookViewModel bookVM);
     }
 }

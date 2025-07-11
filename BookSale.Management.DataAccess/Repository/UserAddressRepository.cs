@@ -9,20 +9,20 @@ namespace BookSale.Management.DataAccess.Repository
         {
         }
 
-        public async Task<IEnumerable<UserAddress>> GetAllAddressByUserAsync(string id)
+        public async Task<IEnumerable<UserAddress>> GetAllAddressByUser(string id)
         {
-            return await GetAllAsync(x => x.UserId == id && x.IsActive);
+            return await GetAll(x => x.UserId == id && x.IsActive);
         }
 
-        public async Task SaveAsync(UserAddress userAddress)
+        public async Task Save(UserAddress userAddress)
         {
             if(userAddress.Id == 0)
             {
-                await CreateAsync(userAddress);
+                await base.Create(userAddress);
             }
             else
             {
-                Update(userAddress);
+                base.Update(userAddress);
             }
         }
     }

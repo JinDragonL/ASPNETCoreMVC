@@ -1,5 +1,6 @@
-﻿@using BookSale.Management.Application.DTOs.Book;
-@model BookForSiteDTO
+﻿
+@using BookSale.Management.Application.DTOs.Book;
+@model BookForSiteDto
 
 <div class="container mt-3">
     <div class="row">
@@ -10,7 +11,19 @@
                         <div class="fw-bold"><a href="/shop?g=0">All</a></div>
                     </div>
                 </li>
-                @await Component.InvokeAsync("GenreList", new { isActive = true })
+                 @{
+                    var genres = ViewBag.Genres as IEnumerable<BookSale.Management.Application.DTOs.Genre.GenreSiteDto>;
+
+                    foreach (var genre in genres)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold"><a href="/shop?g=@genre.Id">@genre.Name</a></div>
+                            </div>
+                            <span class="badge bg-primary rounded-pill">@genre.TotalBooks</span>
+                        </li>
+                    }
+                }
             </ol>
         </div>
         <div class="col-10">
@@ -22,9 +35,7 @@
                     {
                         foreach (var book in pagination.Books)
                         {
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-12  mb-2">
-                                <partial name="_ProductItems.cshtml" model="book" />
-                            </div>
+                            <partial name="_ProductItems.cshtml" model="book" />
                         }
                     }
                     else
@@ -45,7 +56,7 @@
                     @{
                         bool isDisabled = Model.IsDisable;
 
-                        if (isDisabled)
+                        if(isDisabled)
                         {
                             <button type="button" class="btn btn-info btn-sm mt-2" disabled id="btn-load-more">Load More</button>
                         }

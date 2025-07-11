@@ -4,6 +4,6 @@ namespace BookSale.Management.Application.Abstracts
 {
     public interface IAuthenticationService
     {
-        Task<ResponseModel> CheckLogin(string username, string password, bool hasRemmeber);
+        Task<ResponseModel> LoginAsync(string username, string password, bool rememberMe);
     }
 }

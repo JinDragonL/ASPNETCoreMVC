@@ -5,6 +5,7 @@ using BookSale.Management.Application.DTOs.Chart;
 using BookSale.Management.Application.DTOs.Order;
 using BookSale.Management.Application.DTOs.Report;
 using BookSale.Management.DataAccess.Abstract;
+using BookSale.Management.DataAccess.Migrations;
 using BookSale.Management.Domain.Entities;
 using BookSale.Management.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -23,9 +24,10 @@ namespace BookSale.Management.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<ResponseDatatable<object>> GetByPaginationAsync(RequestDatatable request)
+        public async Task<ResponseDatatable<object>> GetByPagination(RequestDatatable request)
         {
-            var (orders, totalRecords) = await _unitOfWork.OrderRepository.GetByPaginationAsync<OrderResponseDTO>(request.SkipItems,
+
+            var (orders, totalRecords) = await _unitOfWork.OrderRepository.GetByPagination<OrderResponseDto>(request.SkipItems,
                                                                                                     request.PageSize,
                                                                                                     request.Keyword);
 
@@ -36,18 +38,18 @@ namespace BookSale.Management.Application.Services
                 RecordsFiltered = totalRecords,
                 Data = orders.Select(x => new
                 {
-                    x.Id,
-                    x.Code,
-                    x.CreatedOn,
-                    x.Fullname,
-                    x.TotalPrice,
+                    Id = x.Id,
+                    Code = x.Code,
+                    CreatedOn = x.CreatedOn,
+                    Fullname = x.Fullname,
+                    TotalPrice = x.TotalPrice,
                     Status = Enum.GetName(typeof(StatusProcessing), x.Status),
                     PaymentMethod = Enum.GetName(typeof(PaymentMethod), x.PaymentMethod),
                 }).ToList()
             };
         }
 
-        public async Task<bool> SaveAsync(OrderRequestDTO orderDTO)
+        public async Task<bool> SaveAsync(OrderRequestDto orderDTO)
         {
             try
             {
@@ -57,7 +59,7 @@ namespace BookSale.Management.Application.Services
 
                 await _unitOfWork.OrderRepository.SaveAsync(order);
 
-                await _unitOfWork.SaveChangeAsync();
+                await _unitOfWork.Commit();
 
                 if (orderDTO.Books.Any())
                 {
@@ -75,15 +77,15 @@ namespace BookSale.Management.Application.Services
                         await _unitOfWork.Table<OrderDetail>().AddAsync(orderDetail);
                     }
 
-                    await _unitOfWork.SaveChangeAsync();
+                    await _unitOfWork.Commit();
                 }
 
-                await _unitOfWork.CommitTransactionAsync();
+                await _unitOfWork.CommitTransaction();
 
             }
             catch (Exception ex)
             {
-                await _unitOfWork.RollbackTransactionAsync();
+                await _unitOfWork.RollbackTransaction();
 
                 return false;
             }
@@ -91,27 +93,25 @@ namespace BookSale.Management.Application.Services
             return true;
         }
 
-        public async Task<ReportOrderDTO> GetReportByIdAsync(string id)
+        public async Task<ReportOrderDto> GetReportByIdAsync(string id)
         {
             var order = await _unitOfWork.Table<Order>()
                                          .Where(x => x.Id == id)
                                          .Include(x => x.UserAddress)
                                          .Include(x => x.Details)
-                                         .AsNoTracking()
                                          .SingleAsync();
 
             var details = order.Details.Join(_unitOfWork.Table<Book>(), x => x.ProductId,
                                                                         y => y.Id,
-                                                                        (detail, book) => new OrderDetailDTO
+                                                                        (detail, book) => new OrderDetailDto
                                                                         {
                                                                             Price = detail.UnitPrice,
                                                                             Quantity = detail.Quantity,
                                                                             ProductName = book.Title
                                                                         }).ToList();
+            var address = _mapper.Map<OrderAddressDto>(order.UserAddress);
 
-            var address = _mapper.Map<OrderAddressDTO>(order.UserAddress);
-
-            return new ReportOrderDTO
+            return new ReportOrderDto
             {
                 Code = order.Code,
                 CreateOn = order.CreatedOn,
@@ -120,21 +120,22 @@ namespace BookSale.Management.Application.Services
             };
         }
 
-        public async Task<IEnumerable<ReportOrderResponseDTO>> GetReportOrderAsync(ReportOrderRequestDTO request)
+        public async Task<IEnumerable<ReportOrderResponseDto>> GetReportOrderAsync(ReportOrderRequestDto request)
         {
             DateTime start = DateTime.ParseExact(request.From, "dd/MM/yyyy", new CultureInfo("vi-VN"));
             DateTime end = DateTime.ParseExact(request.To, "dd/MM/yyyy", new CultureInfo("vi-VN")); //15/10/2023
 
-            var result = await _unitOfWork.OrderRepository.GetReportByExcelAsync<ReportOrderResponseDTO>(start.ToString("yyyy/MM/dd"), 
+            var result = await _unitOfWork.OrderRepository.GetReportByExcel<ReportOrderResponseDto>(start.ToString("yyyy/MM/dd"), 
                                                                                                     end.ToString("yyyy/MM/dd"), 
                                                                                                     request.GenreId, 
                                                                                                     (int)request.Status);
+
             return result;
         }
 
-        public async Task<IEnumerable<ChartOrderByGenreDTO>> GetChartDataByGenreAsync(int genreId)
+        public async Task<IEnumerable<ChartOrderByGenreDto>> GetChartDataByGenreAsync(int genreId)
         {
-            return await _unitOfWork.OrderRepository.GetChartDataByGenreAsync<ChartOrderByGenreDTO>(genreId);
+            return await _unitOfWork.OrderRepository.GetChartDataByGenreAsync<ChartOrderByGenreDto>(genreId);
         }
     }
 }

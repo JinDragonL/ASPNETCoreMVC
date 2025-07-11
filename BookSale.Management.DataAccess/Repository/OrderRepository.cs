@@ -13,7 +13,7 @@ namespace BookSale.Management.DataAccess.Repository
         {
             _sqLQueryHandler = sqLQueryHandler;
         }
-        public async Task<(IEnumerable<T>, int)> GetByPaginationAsync<T>(int pageIndex, int pageSize, string keyword)
+        public async Task<(IEnumerable<T>, int)> GetByPagination<T>(int pageIndex, int pageSize, string keyword)
         {
             DynamicParameters parammeters = new DynamicParameters();
 
@@ -31,10 +31,10 @@ namespace BookSale.Management.DataAccess.Repository
 
         public async Task SaveAsync(Order order)
         {
-            await base.CreateAsync(order);
+            await base.Create(order);
         }
 
-        public async Task<IEnumerable<T>> GetReportByExcelAsync<T>(string from, string to, int genreId, int status)
+        public async Task<IEnumerable<T>> GetReportByExcel<T>(string from, string to, int genreId, int status)
         {
             DynamicParameters parammeters = new DynamicParameters();
 
@@ -58,5 +58,7 @@ namespace BookSale.Management.DataAccess.Repository
 
             return result;
         }
+
+        //
     }
 }

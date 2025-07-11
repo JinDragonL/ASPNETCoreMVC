@@ -4,6 +4,6 @@ namespace BookSale.Management.Application.Abstracts
 {
     public interface IRoleService
     {
-        Task<IEnumerable<SelectListItem>> GetRoleForDropdownlistAsync();
+        Task<IEnumerable<SelectListItem>> GetRoleForDropdownlist();
     }
 }

@@ -3,7 +3,7 @@ using BookSale.Management.Domain.Enums;
 
 namespace BookSale.Management.Application.DTOs.Order
 {
-    public class OrderRequestDTO
+    public class OrderRequestDto
     {
         public string Id { get; set; }
         public string Code { get; set; }
@@ -12,7 +12,7 @@ namespace BookSale.Management.Application.DTOs.Order
         public PaymentMethod PaymentMethod { get; set; }
         public string UserId { get; set; }
         public int AddressId { get; set; }
-        public List<BookCartDTO> Books { get; set; }
+        public List<BookCartDto> Books { get; set; }
         public StatusProcessing Status { get; set; }
 
     }

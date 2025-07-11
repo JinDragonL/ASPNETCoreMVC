@@ -14,7 +14,7 @@ namespace BookSale.Management.DataAccess.Repository
             _sqLQueryHandler = sqLQueryHandler;
         }
 
-        public async Task<(IEnumerable<T>, int)> GetBooksByPaginationAsync<T>(int pageIndex, int pageSize, string keyword)
+        public async Task<(IEnumerable<T>, int)> GetBooksByPagination<T>(int pageIndex, int pageSize, string keyword)
         {
             DynamicParameters parammeters = new DynamicParameters();
 
@@ -42,16 +42,16 @@ namespace BookSale.Management.DataAccess.Repository
 
         public async Task<IEnumerable<Book>> GetBooksByListCodeAsync(string[] codes)
         {
-            return await base.GetAllAsync(x => codes.Contains(x.Code));
+            return await base.GetAll(x => codes.Contains(x.Code));
         }
 
-        public async Task<bool> SaveAsync(Book book)
+        public async Task<bool> Save(Book book)
         {
             try
             {
                 if (book.Id == 0)
                 {
-                    await base.CreateAsync(book);
+                    await base.Create(book);
                 }
                 else
                 {
@@ -70,7 +70,7 @@ namespace BookSale.Management.DataAccess.Repository
         {
             IEnumerable<Book> books;
 
-            books = await GetAllAsync(x => genreId == 0 || x.GenreId == genreId);
+            books = await base.GetAll(x => genreId == 0 || x.GenreId == genreId);
 
             var totalRecords = books.Count();
 
@@ -81,6 +81,5 @@ namespace BookSale.Management.DataAccess.Repository
 
             return (books, totalRecords);
         }
-
     }
 }

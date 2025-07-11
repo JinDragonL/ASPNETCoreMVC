@@ -1,6 +1,6 @@
 ﻿using BookSale.Management.Application.Abstracts;
 using BookSale.Management.Application.DTOs.Report;
-using BookSale.Management.Infrastruture.Abstract;
+using BookSale.Management.Infrastruture.Services;
 using BookSale.Management.UI.Ultility;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,10 +22,10 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
             _excelHandler = excelHandler;
         }
 
-        [Breadscrumb("Order Report", "Report")]
-        public async Task<IActionResult> Index(ReportOrderRequestDTO reportRequest)
+        [Breadcrumb("Report", "Order Report")]
+        public async Task<IActionResult> Index(ReportOrderRequestDto reportRequest)
         {
-            IEnumerable<ReportOrderResponseDTO> responseDTOs = new List<ReportOrderResponseDTO>();
+            IEnumerable<ReportOrderResponseDto> responseDTOs = new List<ReportOrderResponseDto>();
 
             var genres = await _genreService.GetGenresForDropdownlistAsync();
             ViewBag.Genres = genres;
@@ -45,7 +45,7 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
         {
             var order = await _orderService.GetReportByIdAsync(id);
 
-            string html = await this.RenderViewAsync<ReportOrderDTO>(RouteData, "_TemplateReportOrder", order, true);
+            string html = await this.RenderViewAsync<ReportOrderDto>(RouteData, "_TemplateReportOrder", order, true);
 
             var result = _pdfService.GeneratePDF(html);
 
@@ -53,11 +53,11 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ExportExcelOrder(ReportOrderRequestDTO reportRequest)
+        public async Task<IActionResult> ExportExcelOrder(ReportOrderRequestDto reportRequest)
         {
             var responseDTOs = await _orderService.GetReportOrderAsync(reportRequest);
 
-            var stream = await _excelHandler.Export<ReportOrderResponseDTO>(responseDTOs.ToList());
+            var stream = await _excelHandler.Export<ReportOrderResponseDto>(responseDTOs.ToList());
 
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"OrderReport{DateTime.Now.Ticks}.xlsx");
         }

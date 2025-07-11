@@ -1,5 +1,4 @@
-﻿using BookSale.Management.Infrastruture.Abstract;
-using OfficeOpenXml;
+﻿using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Drawing;
 
@@ -29,15 +28,19 @@ namespace BookSale.Management.Infrastruture.Services
 
                 var properties = obj.GetType().GetProperties();
 
+                int posRow = 2;
+
                 //create data
                 for (int row = 0; row < dataItems.Count(); row++)
                 {
-                    var rowData = dataItems[row];
-
                     for (int col = 0; col < properties.Count(); col++)
                     {
-                        workbook.Cells[row + 2, col + 1].Value = rowData.GetType().GetProperty(properties[col].Name).GetValue(rowData);
+                        var rowData = dataItems[row];
+
+                        workbook.Cells[posRow, col + 1].Value = rowData.GetType().GetProperty(properties[col].Name).GetValue(rowData);
                     }
+
+                    posRow++;
                 }
 
                 // create header

@@ -2,7 +2,7 @@
 
 namespace BookSale.Management.Application.DTOs.Report
 {
-    public class ReportOrderResponseDTO
+    public class ReportOrderResponseDto
     {
         public string Code { get; set; }
         public DateTime CreatedOn { get; set; }

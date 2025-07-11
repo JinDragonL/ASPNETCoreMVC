@@ -1,6 +1,4 @@
-﻿@using BookSale.Management.Application.Abstracts
-@model BookSale.Management.Application.DTOs.ViewModels.BookViewModel
-@inject IGenreService _generService
+﻿@model BookSale.Management.Application.DTOs.ViewModels.BookViewModel
 
 @{
     ViewData["Title"] = "SaveData";
@@ -25,7 +23,7 @@
                                     <select asp-for="GenreId" class="form-control">
                                         <option value="0">Please select</option>
                                         @{
-                                            var genres = await _generService.GetGenresForDropdownlistAsync();
+                                            var genres = ViewBag.Genres as IEnumerable<SelectListItem>;
 
                                             foreach (var genre in genres)
                                             {

@@ -2,14 +2,14 @@ using BookSale.Management.DataAccess;
 using BookSale.Management.Infrastruture.Configuration;
 using BookSale.Management.UI.Configuration;
 using BookSale.Management.UI.Ultility;
-using Owl.reCAPTCHA;
-using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 var builderRazer = builder.Services.AddRazorPages();
-// Add services to the container.
 
-builder.AddSerilog();
+builder.Services.AddAntiforgery(options =>
+{
+    options.HeaderName = "RequestVerificationToken";
+});
 
 builder.Services.ConfigureIdentity(builder.Configuration);
 builder.Services.AddDependencyInjection();
@@ -30,30 +30,21 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromHours(1);
 });
 
-builder.Services.AddreCAPTCHAV2(x =>
-{
-    x.SiteKey = "***";
-    x.SiteSecret = "***";
-});
-
 var app = builder.Build();
 
-app.UseSerilogRequestLogging();
+app.AutoMigration().GetAwaiter().GetResult();
 
-await app.AutoMigration();
-
-await app.SeedData(builder.Configuration);
+app.SeedData(builder.Configuration).GetAwaiter().GetResult();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
     builderRazer.AddRazorRuntimeCompilation();
-    app.UseExceptionHandler("/Error");
 }
 else
 {
-    app.UseExceptionHandler("/Error");
+    app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }

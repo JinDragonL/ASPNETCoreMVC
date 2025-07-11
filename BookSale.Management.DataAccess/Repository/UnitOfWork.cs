@@ -8,9 +8,8 @@ namespace BookSale.Management.DataAccess.Repository
 {
     public class UnitOfWork : IDisposable, IUnitOfWork
     {
-        private readonly ISQLQueryHandler _sqLQueryHandler;
-
         ApplicationDbContext _applicationDbContext;
+        private readonly ISQLQueryHandler _sqLQueryHandler;
         IBookRepository _bookRepository;
         IGenreRepository _genreRepository;
         IUserAddressRepository _addressRepository;
@@ -38,17 +37,17 @@ namespace BookSale.Management.DataAccess.Repository
             _dbContextTransaction = await _applicationDbContext.Database.BeginTransactionAsync();
         }
 
-        public async Task CommitTransactionAsync()
+        public async Task CommitTransaction()
         {
-            await _dbContextTransaction.CommitAsync();
+            await _dbContextTransaction?.CommitAsync();
         }
 
-        public async Task RollbackTransactionAsync()
+        public async Task RollbackTransaction()
         {
-            await _dbContextTransaction.RollbackAsync();
+            await _dbContextTransaction?.RollbackAsync();
         }
 
-        public async Task SaveChangeAsync()
+        public async Task Commit()
         {
             await _applicationDbContext.SaveChangesAsync();
         }

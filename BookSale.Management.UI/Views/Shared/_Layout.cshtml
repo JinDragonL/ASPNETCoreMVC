@@ -12,13 +12,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BookSale Management</title>
-    <link href="~/clientbundle/layout.site.min.css" rel="stylesheet" />
-   @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="~/css/site/css/plugins/font-awesome.min.css" rel="stylesheet" />
     <link href="~/css/site/css/plugins/bicon.min.css" rel="stylesheet" />
     <link href="~/js/toaster/jquery.toast.min.css" rel="stylesheet" />
-    <link href="~/css/site.css" rel="stylesheet" /> *@
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -39,24 +37,23 @@
                         </li>
                     </ul>
                 </div>
+                <div class="p-2">
+                    <partial name="_LoginPartial.cshtml" />
+                </div>
             </div>
         </nav>
     </header>
     <div class="container">
-       @{
+       @* @{
             var requestCulture = Context.Features.Get<IRequestCultureFeature>();
-
-            var options = (requestCulture.Provider as CookieRequestCultureProvider)?.Options;
-
-            var cultureItems = options?.SupportedCultures?.Select(culture => new SelectListItem
+            var cultureItems = new List<SelectListItem>
             {
-                Value = culture.Name,
-                Text = culture.Parent.DisplayName
-            });
-
+                new SelectListItem { Value = "en-US", Text = "English" },
+                new SelectListItem { Value = "vi-VN", Text = "Vietnamese" },
+            };
             var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
         }
-       @*  <div>
+        <div>
             <form id="selectLanguage" asp-controller="Home"
                   asp-action="SetLanguage" method="post" class="form-horizontal" role="form">
                 <input type="hidden" value="@returnUrl" name="@nameof(languageViewModel.ReturnUrl)" />
@@ -65,22 +62,19 @@
                         asp-items="cultureItems" >
                 </select>
             </form>
-        </div> *@
+        </div>*@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/clientbundle/layout.site.min.js"></script>
-    @*
     <script src="~/admin/assets/libs/popper.js/dist/popper.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/toaster/jquery.toast.min.js"></script>
     <script src="~/js/jquery.blockui.js"></script>
     <script src="~/js/common.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script> *@
-
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

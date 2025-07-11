@@ -14,7 +14,7 @@ namespace BookSale.Management.Application.Services
             _roleManager = roleManager;
         }
 
-        public async Task<IEnumerable<SelectListItem>> GetRoleForDropdownlistAsync()
+        public async Task<IEnumerable<SelectListItem>> GetRoleForDropdownlist()
         {
             var roles = await _roleManager.Roles.ToListAsync();
 

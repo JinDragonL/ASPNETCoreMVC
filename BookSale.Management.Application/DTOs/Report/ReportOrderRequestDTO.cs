@@ -2,7 +2,7 @@
 
 namespace BookSale.Management.Application.DTOs.Report
 {
-    public class ReportOrderRequestDTO
+    public class ReportOrderRequestDto
     {
         public string From { get; set; }
         public string To { get; set; }
