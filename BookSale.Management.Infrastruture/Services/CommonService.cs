@@ -6,7 +6,7 @@ namespace BookSale.Management.Application.Services
     {
         public string GenerateRandomCode(int number)
         {
-            string characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#!";
+            string characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@";
 
             Random random = new Random();
 

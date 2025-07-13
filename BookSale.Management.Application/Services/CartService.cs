@@ -26,7 +26,7 @@ namespace BookSale.Management.Application.Services
                 await _unitOfWork.BeginTransaction();
 
                 await _unitOfWork.CartRepository.Save(cart);
-                await _unitOfWork.Commit();
+                await _unitOfWork.CommitAsync();
 
                 if (bookCartDTOs.Books.Any())
                 {
@@ -44,14 +44,14 @@ namespace BookSale.Management.Application.Services
                         await _unitOfWork.Table<CartDetail>().AddAsync(cartDetail);
                     }
 
-                    await _unitOfWork.Commit();
+                    await _unitOfWork.CommitAsync();
                 }
 
-                await _unitOfWork.CommitTransaction();
+                await _unitOfWork.CommitTransactionAsync();
             }
             catch (Exception ex)
             {
-                await _unitOfWork.RollbackTransaction();
+                await _unitOfWork.RollbackTransactionAsync();
                 return false;
             }
 

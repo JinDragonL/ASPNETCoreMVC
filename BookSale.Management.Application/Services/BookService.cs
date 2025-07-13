@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
+using BookSale.Management.Application.Abstracts;
 using BookSale.Management.Application.DTOs;
 using BookSale.Management.Application.DTOs.Book;
-using BookSale.Management.Application.DTOs.ViewModels;
 using BookSale.Management.DataAccess.Abstract;
 using BookSale.Management.Domain.Abstracts;
 using BookSale.Management.Domain.Entities;
-using BookSale.Management.Domain.Enums;
 using BookSale.Management.UI.Models;
-using Microsoft.AspNetCore.Http;
 
 namespace BookSale.Management.Application.Services
 {
@@ -18,7 +16,7 @@ namespace BookSale.Management.Application.Services
         private readonly ICommonService _commonService;
         private readonly IImageService _imageService;
 
-        public BookService(IUnitOfWork unitOfWork, IMapper mapper, 
+        public BookService(IUnitOfWork unitOfWork, IMapper mapper,
                             ICommonService commonService, IImageService imageService)
         {
             _unitOfWork = unitOfWork;
@@ -45,78 +43,75 @@ namespace BookSale.Management.Application.Services
             };
         }
 
-        public async Task<BookViewModel> GetBooksByIdAsync(int id)
+        public async Task<Book> GetBooksByIdAsync(int id)
         {
-            var book = await _unitOfWork.BookRepository.GetBooksByIdAsync(id);
-            return  _mapper.Map<BookViewModel>(book);
+            return await _unitOfWork.BookRepository.GetBooksByIdAsync(id);
         }
 
-        public async Task<ResponseModel> SaveAsync(BookViewModel bookVM)
+        public async Task<string> GenerateCode(int length = 15)
         {
-            var book = new Book();
+            int maxChecking = 50;
+            int attemps = 0;
 
-            if ((bookVM.Id ?? 0) == 0)
+            while (attemps < maxChecking)
             {
-                book = _mapper.Map<Book>(bookVM);
-                book.CreatedOn = DateTime.Now;
-                book.Code = bookVM.Code;
-            }
-            else
-            {
-                book = await _unitOfWork.BookRepository.GetBooksByIdAsync(bookVM.Id ?? 0);
+                string code = _commonService.GenerateRandomCode(length);
 
-                book.Title = bookVM.Title;
-                book.Description = bookVM.Description;
-                book.Author = bookVM.Author;
-                book.Available = bookVM.Available;
-                book.GenreId = bookVM.GenreId;
-                book.Cost = bookVM.Cost;
-                book.Publisher = bookVM.Publisher;
-                book.IsActive = bookVM.IsActive;
+                var isExist = await _unitOfWork.BookRepository.GetBooksByCodeAsync(code);
+
+                if (isExist is null)
+                {
+                    return code;
+                }
+
+                attemps++;
             }
 
-            var result = await _unitOfWork.BookRepository.Save(book);
+            return string.Empty;
+        }
 
-            await _unitOfWork.Commit();
+        public async Task<ResponseModel> CreateAsync(Book book)
+        {
+            book.CreatedOn = DateTime.UtcNow;
 
-            if(result)
-            {
-                await _imageService.SaveImage(new List<IFormFile> { bookVM.Image }, "images/book", $"{book.Id}.png");
-            }
+            await _unitOfWork.BookRepository.AddAsync(book);
 
-            var actionType = bookVM.Id == 0 ? ActionType.Insert : ActionType.Update;
-            var successMessage = $"{(bookVM.Id == 0 ? "Insert" : "Update")} successful.";
-            var failureMessage = $"{(bookVM.Id == 0 ? "Insert" : "Update")} failed.";
+            await _unitOfWork.CommitAsync();
 
             return new ResponseModel
             {
-                Message = result ? successMessage : failureMessage,
-                Success = result,
+                Success = true,
+                Message = "Created book successful."
             };
         }
 
-        public async Task<string> GenerateCodeAsync(int number = 10)
+        public async Task<ResponseModel> EditAsync(Book book)
         {
-            string newCode = string.Empty;
-
-            while (true)
+            try
             {
-                newCode = _commonService.GenerateRandomCode(number);
+                _unitOfWork.BookRepository.Update(book);
 
-                var bookCode = await _unitOfWork.BookRepository.GetBooksByCodeAsync(newCode);
+                await _unitOfWork.CommitAsync();
 
-                if (bookCode is null)
+                return new ResponseModel
                 {
-                    break;
-                }
+                    Success = true,
+                    Message = "Updated book successful."
+                };
             }
-
-            return newCode;
+            catch (Exception)
+            {
+                return new ResponseModel
+                {
+                    Success = false,
+                    Message = "Updated book failed."
+                };
+            }
         }
 
         public async Task<BookForSiteDto> GetBooksForSiteAsync(int genreId, int pageIndex, int pageSize = 10)
         {
-            var (books, totalRecords) = await _unitOfWork.BookRepository.GetBooksForSiteAsync(genreId, pageIndex, pageSize);    
+            var (books, totalRecords) = await _unitOfWork.BookRepository.GetBooksForSiteAsync(genreId, pageIndex, pageSize);
 
             if (!books.Any())
             {
@@ -131,7 +126,8 @@ namespace BookSale.Management.Application.Services
 
             double progressingValue = (pageIndex * pageSize) * 100 / totalRecords;
 
-            return new BookForSiteDto { 
+            return new BookForSiteDto
+            {
                 Books = bookDTOs,
                 CurrentRecord = currentDisplayingItems,
                 IsDisable = isDisableButton,
@@ -148,5 +144,6 @@ namespace BookSale.Management.Application.Services
 
             return result;
         }
+
     }
 }

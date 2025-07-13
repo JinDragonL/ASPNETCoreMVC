@@ -35,7 +35,7 @@ namespace BookSale.Management.Application.Services
 
                 await _unitOfWork.UserAddressRepository.Save(address);
 
-                await _unitOfWork.Commit();
+                await _unitOfWork.CommitAsync();
 
                 return address.Id;
             }

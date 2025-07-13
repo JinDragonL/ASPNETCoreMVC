@@ -9,10 +9,10 @@ namespace BookSale.Management.UI.Configuration
         public static void RegisterGlobalizationAndLocalization(this IServiceCollection services)
         {
             var supportedCultures = new[]
-{
-                new CultureInfo("en-US"),
-                new CultureInfo("vi-VN")
-};
+                {
+                                new CultureInfo("en-US"),
+                                new CultureInfo("vi-VN")
+                };
 
             var localizationOptions = new RequestLocalizationOptions
             {

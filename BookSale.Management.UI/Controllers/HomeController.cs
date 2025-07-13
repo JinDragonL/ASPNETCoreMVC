@@ -1,4 +1,4 @@
-﻿using BookSale.Management.Application.Services;
+﻿using BookSale.Management.Application.Abstracts;
 using BookSale.Management.UI.Models;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;

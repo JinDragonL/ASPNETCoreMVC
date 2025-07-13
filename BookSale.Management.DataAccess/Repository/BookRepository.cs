@@ -1,4 +1,5 @@
-﻿using BookSale.Management.DataAccess.Data;
+﻿using BookSale.Management.DataAccess.Dapper;
+using BookSale.Management.DataAccess.Data;
 using BookSale.Management.Domain.Abstract;
 using BookSale.Management.Domain.Entities;
 using Dapper;
@@ -45,25 +46,16 @@ namespace BookSale.Management.DataAccess.Repository
             return await base.GetAll(x => codes.Contains(x.Code));
         }
 
-        public async Task<bool> Save(Book book)
+        public async Task<Book> AddAsync(Book book)
         {
-            try
-            {
-                if (book.Id == 0)
-                {
-                    await base.Create(book);
-                }
-                else
-                {
-                    base.Update(book);
-                }
+            await base.Create(book);
 
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return book;
+        }
+
+        public void Update(Book book)
+        {
+            base.Update(book);
         }
 
         public async Task<(IEnumerable<Book>, int)> GetBooksForSiteAsync(int genreId, int pageIndex, int pageSize = 10)
@@ -81,5 +73,6 @@ namespace BookSale.Management.DataAccess.Repository
 
             return (books, totalRecords);
         }
+
     }
 }

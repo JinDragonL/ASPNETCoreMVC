@@ -2,11 +2,8 @@
 using BookSale.Management.Application.Abstracts;
 using BookSale.Management.Application.DTOs;
 using BookSale.Management.Application.DTOs.Genre;
-using BookSale.Management.Application.DTOs.ViewModels;
 using BookSale.Management.DataAccess.Abstract;
 using BookSale.Management.Domain.Entities;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookSale.Management.Application.Services
@@ -48,7 +45,7 @@ namespace BookSale.Management.Application.Services
             };
         }
 
-        public async Task<IEnumerable<SelectListItem>> GetGenresForDropdownlistAsync()
+        public async Task<List<SelectListItem>> GetForDropdownlistAsync()
         {
             var genres = await _unitOfWork.GenreRepository.GetAllGenre();
 
@@ -58,7 +55,7 @@ namespace BookSale.Management.Application.Services
                 Text = g.Name
             });
 
-            return result;
+            return result.ToList();
         }
 
         public IEnumerable<GenreSiteDto> GetGenresListForSite()

@@ -59,7 +59,7 @@ namespace BookSale.Management.Application.Services
 
                 await _unitOfWork.OrderRepository.SaveAsync(order);
 
-                await _unitOfWork.Commit();
+                await _unitOfWork.CommitAsync();
 
                 if (orderDTO.Books.Any())
                 {
@@ -77,15 +77,15 @@ namespace BookSale.Management.Application.Services
                         await _unitOfWork.Table<OrderDetail>().AddAsync(orderDetail);
                     }
 
-                    await _unitOfWork.Commit();
+                    await _unitOfWork.CommitAsync();
                 }
 
-                await _unitOfWork.CommitTransaction();
+                await _unitOfWork.CommitTransactionAsync();
 
             }
             catch (Exception ex)
             {
-                await _unitOfWork.RollbackTransaction();
+                await _unitOfWork.RollbackTransactionAsync();
 
                 return false;
             }

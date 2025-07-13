@@ -25,19 +25,19 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
         [Breadcrumb("Report", "Order Report")]
         public async Task<IActionResult> Index(ReportOrderRequestDto reportRequest)
         {
-            IEnumerable<ReportOrderResponseDto> responseDTOs = new List<ReportOrderResponseDto>();
+            IEnumerable<ReportOrderResponseDto> responseDtos = new List<ReportOrderResponseDto>();
 
-            var genres = await _genreService.GetGenresForDropdownlistAsync();
+            var genres = await _genreService.GetForDropdownlistAsync();
             ViewBag.Genres = genres;
 
             if(!string.IsNullOrEmpty(reportRequest.From) && !string.IsNullOrEmpty(reportRequest.To))
             {
-                responseDTOs = await _orderService.GetReportOrderAsync(reportRequest);
+                responseDtos = await _orderService.GetReportOrderAsync(reportRequest);
             }
 
             ViewBag.FilterData = reportRequest;
 
-            return View(responseDTOs);
+            return View(responseDtos);
         }
 
         [HttpGet]
@@ -45,7 +45,7 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
         {
             var order = await _orderService.GetReportByIdAsync(id);
 
-            string html = await this.RenderViewAsync<ReportOrderDto>(RouteData, "_TemplateReportOrder", order, true);
+            string html = await this.RenderViewAsync(RouteData, "_TemplateReportOrder", order, true);
 
             var result = _pdfService.GeneratePDF(html);
 
@@ -57,7 +57,7 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
         {
             var responseDTOs = await _orderService.GetReportOrderAsync(reportRequest);
 
-            var stream = await _excelHandler.Export<ReportOrderResponseDto>(responseDTOs.ToList());
+            var stream = await _excelHandler.Export(responseDTOs.ToList());
 
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"OrderReport{DateTime.Now.Ticks}.xlsx");
         }

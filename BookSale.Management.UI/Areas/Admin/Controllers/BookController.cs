@@ -1,7 +1,8 @@
-﻿using BookSale.Management.Application.Abstracts;
+﻿using AutoMapper;
+using BookSale.Management.Application.Abstracts;
 using BookSale.Management.Application.DTOs;
 using BookSale.Management.Application.DTOs.ViewModels;
-using BookSale.Management.Application.Services;
+using BookSale.Management.Domain.Entities;
 using BookSale.Management.UI.Ultility;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +12,13 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
     {
         private readonly IBookService _bookService;
         private readonly IGenreService _genreService;
+        private readonly IMapper _mapper;
 
-        public BookController(IBookService bookService, IGenreService genreService)
+        public BookController(IBookService bookService, IGenreService genreService, IMapper mapper)
         {
             _bookService = bookService;
             _genreService = genreService;
+            _mapper = mapper;
         }
 
         [Breadcrumb("Application", "Book List")]
@@ -24,64 +27,84 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpGet]
-        [Breadcrumb("Application", "Book Form")]
-        public async Task<IActionResult> SaveData(int id)
-        {
-            var bookVM = new BookViewModel();
-
-            //var genres = await _genreService.GetGenresForDropdownlistAsync();
-            //ViewBag.Genres = genres;
-
-            //string code = await _bookService.GenerateCodeAsync();
-            //bookVM.Code = code;
-            
-            //if (id != 0)
-            //{
-            //    bookVM = await _bookService.GetBooksByIdAsync(id);
-            //}
-
-            return View(bookVM);
-        }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveData(BookViewModel bookViewModel)
-        {
-            if(ModelState.IsValid)
-            {
-                var result = await _bookService.SaveAsync(bookViewModel);
-
-                if (result.Success)
-                {
-                    return RedirectToAction("", "book");
-                }
-
-                ModelState.AddModelError("error", result.Message);
-            }
-            else
-            {
-                ModelState.AddModelError("error", "Invalid model");
-            }
-
-            return View(bookViewModel);
-        }
-
         [HttpPost]
         public async Task<IActionResult> GetBooksPagination(RequestDatatable requestDatatable)
         {
             var result = await _bookService.GetBooksByPaginationAsync(requestDatatable);
-
             return Json(result);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GenerateCodeBook()
+        public async Task<IActionResult> Create()
         {
-            var result = await _bookService.GenerateCodeAsync();
+            var md = new AddBookViewModel();
 
-            return Json(result);
+            md.Genres = await _genreService.GetForDropdownlistAsync();
+            md.Code = await _bookService.GenerateCode();
+
+            return View(md);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(AddBookViewModel addBook)
+        {
+            if (ModelState.IsValid)
+            {
+                var book = _mapper.Map<Book>(addBook);
+
+                await _bookService.CreateAsync(book);
+
+                TempData["SuccessUpdate"] = "Created the book successfully.";
+            }
+            else
+            {
+                ModelState.AddModelError("error", "Invalid Model");
+            }
+
+            addBook.Genres = await _genreService.GetForDropdownlistAsync();
+
+            return View(addBook);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var book = await _bookService.GetBooksByIdAsync(id);
+
+            var bookVm = _mapper.Map<Book, EditBookViewModel>(book);
+
+            bookVm.Genres = await _genreService.GetForDropdownlistAsync();
+
+            return View(bookVm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditBookViewModel bookViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var book = await _bookService.GetBooksByIdAsync(bookViewModel.Id);
+
+                if (book is null)
+                {
+                    ModelState.AddModelError("error", "Book is not exist");
+                    return View();
+                }
+
+                _mapper.Map(bookViewModel, book);
+
+                await _bookService.EditAsync(book);
+
+                TempData["SuccessUpdate"] = "Updated the book successfully.";
+            }
+            else
+            {
+                ModelState.AddModelError("error", "Invalid Model");
+            }
+
+            bookViewModel.Genres = await _genreService.GetForDropdownlistAsync();
+
+            return View(bookViewModel);
         }
     }
 }

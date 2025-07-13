@@ -1,0 +1,79 @@
+﻿@model BookSale.Management.Application.DTOs.ViewModels.AddBookViewModel
+
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Add Book</h1>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                @{
+                    <ul class="list-group">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(x => x.Errors))
+                        {
+                            <i class="list-group-item text-danger font-italic">@Html.Raw(error.ErrorMessage) </i>
+                        }
+                    </ul>
+                }
+            </div>
+            <div>
+                @if (TempData["SuccessUpdate"] is not null)
+                {
+                    <div class="alert-success">@TempData["SuccessUpdate"]</div>
+                }
+            </div>
+            <div class="col-sm-12 col-lg-4">
+                <form asp-action="create" asp-controller="book" asp-antiforgery="true" method="post">
+                    <div class="form-group">
+                        <label asp-for="GenreId" class="control-label"></label>
+                        <select asp-for="GenreId" asp-items="Model.Genres" class="form-control">
+                            <option value="">Select Genre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Code" class="control-label"></label>
+                        <input asp-for="Code" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Available" class="control-label"></label>
+                        <input asp-for="Available" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Cost" class="control-label"></label>
+                        <input asp-for="Cost" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PublisherCompany" class="control-label"></label>
+                        <input asp-for="PublisherCompany" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Author" class="control-label"></label>
+                        <input asp-for="Author" class="form-control" />
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -8,7 +8,7 @@ namespace BookSale.Management.Application.Abstracts
     {
         Task<GenreDto> GetById(int id);
         Task<ResponseDatatable<GenreDto>> GetGenreByPagination(RequestDatatable request);
-        Task<IEnumerable<SelectListItem>> GetGenresForDropdownlistAsync();
+        Task<List<SelectListItem>> GetForDropdownlistAsync();
         IEnumerable<GenreSiteDto> GetGenresListForSite();
     }
 }
