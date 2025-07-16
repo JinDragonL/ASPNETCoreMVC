@@ -43,12 +43,12 @@ namespace BookSale.Management.DataAccess.Repository
 
         public async Task<IEnumerable<Book>> GetBooksByListCodeAsync(string[] codes)
         {
-            return await base.GetAll(x => codes.Contains(x.Code));
+            return await base.GetAllAsync(x => codes.Contains(x.Code));
         }
 
         public async Task<Book> AddAsync(Book book)
         {
-            await base.Create(book);
+            await base.CreateAsync(book);
 
             return book;
         }
@@ -62,7 +62,7 @@ namespace BookSale.Management.DataAccess.Repository
         {
             IEnumerable<Book> books;
 
-            books = await base.GetAll(x => genreId == 0 || x.GenreId == genreId);
+            books = await base.GetAllAsync(x => genreId == 0 || x.GenreId == genreId);
 
             var totalRecords = books.Count();
 

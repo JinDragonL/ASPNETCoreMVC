@@ -31,7 +31,7 @@ namespace BookSale.Management.DataAccess.Repository
 
         public async Task SaveAsync(Order order)
         {
-            await base.Create(order);
+            await base.CreateAsync(order);
         }
 
         public async Task<IEnumerable<T>> GetReportByExcel<T>(string from, string to, int genreId, int status)

@@ -13,7 +13,7 @@ namespace BookSale.Management.DataAccess.Repository
             _applicationDbContext = applicationDbContext;
         }
 
-        public async Task<List<T>> GetAll(Expression<Func<T, bool>>? expression = null)
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? expression = null)
         {
             if(expression is null)
             {
@@ -28,7 +28,7 @@ namespace BookSale.Management.DataAccess.Repository
             return await _applicationDbContext.Set<T>().FirstOrDefaultAsync(expression);
         }
 
-        public async Task<T> Create(T entity)
+        public async Task<T> CreateAsync(T entity)
         {
             await _applicationDbContext.Set<T>().AddAsync(entity);
 
@@ -50,7 +50,7 @@ namespace BookSale.Management.DataAccess.Repository
             _applicationDbContext.Set<T>().Remove(entity);
         }
 
-        public async Task Commit()
+        public async Task SaveChangeAsync()
         {
            await _applicationDbContext.SaveChangesAsync();
         }

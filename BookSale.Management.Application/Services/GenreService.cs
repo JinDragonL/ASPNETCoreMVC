@@ -21,14 +21,14 @@ namespace BookSale.Management.Application.Services
 
         public async Task<GenreDto> GetById(int id)
         {
-            var genre = await _unitOfWork.GenreRepository.GetById(id);
+            var genre = await _unitOfWork.GenreRepository.GetByIdAsync(id);
 
             return _mapper.Map<GenreDto>(genre);
         }
 
         public async Task<ResponseDatatable<GenreDto>> GetGenreByPagination(RequestDatatable request)
         {
-            var genres = await _unitOfWork.GenreRepository.GetAllGenre();
+            var genres = await _unitOfWork.GenreRepository.GetAllAsync();
 
             var genresDTO = _mapper.Map<IEnumerable<GenreDto>>(genres);
 
@@ -47,7 +47,7 @@ namespace BookSale.Management.Application.Services
 
         public async Task<List<SelectListItem>> GetForDropdownlistAsync()
         {
-            var genres = await _unitOfWork.GenreRepository.GetAllGenre();
+            var genres = await _unitOfWork.GenreRepository.GetAllAsync();
 
             var result = genres.Select(g => new SelectListItem
             {

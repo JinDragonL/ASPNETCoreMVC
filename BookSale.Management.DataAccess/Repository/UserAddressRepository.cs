@@ -11,14 +11,14 @@ namespace BookSale.Management.DataAccess.Repository
 
         public async Task<IEnumerable<UserAddress>> GetAllAddressByUser(string id)
         {
-            return await GetAll(x => x.UserId == id && x.IsActive);
+            return await GetAllAsync(x => x.UserId == id && x.IsActive);
         }
 
         public async Task Save(UserAddress userAddress)
         {
             if(userAddress.Id == 0)
             {
-                await base.Create(userAddress);
+                await base.CreateAsync(userAddress);
             }
             else
             {

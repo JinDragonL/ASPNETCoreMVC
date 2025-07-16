@@ -11,7 +11,7 @@ namespace BookSale.Management.DataAccess.Repository
 
         public async Task CreateAsync(Cart order)
         {
-            await base.Create(order);
+            await base.CreateAsync(order);
         }
 
         public void Update(Cart order)
