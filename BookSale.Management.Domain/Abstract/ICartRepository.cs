@@ -4,6 +4,7 @@ namespace BookSale.Management.DataAccess.Repository
 {
     public interface ICartRepository
     {
-        Task Save(Cart order);
+        Task CreateAsync(Cart order);
+        void Update(Cart order);
     }
 }

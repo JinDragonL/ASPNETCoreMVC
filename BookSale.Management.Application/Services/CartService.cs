@@ -19,14 +19,13 @@ namespace BookSale.Management.Application.Services
 
         public async Task<bool> SaveAsync(CartRequestDto bookCartDTOs)
         {
+            await _unitOfWork.BeginTransaction();
+
             try
             {
                 var cart = _mapper.Map<Cart>(bookCartDTOs);
 
-                await _unitOfWork.BeginTransaction();
-
-                await _unitOfWork.CartRepository.Save(cart);
-                await _unitOfWork.CommitAsync();
+                await _unitOfWork.CartRepository.CreateAsync(cart);
 
                 if (bookCartDTOs.Books.Any())
                 {
@@ -43,9 +42,9 @@ namespace BookSale.Management.Application.Services
 
                         await _unitOfWork.Table<CartDetail>().AddAsync(cartDetail);
                     }
-
-                    await _unitOfWork.CommitAsync();
                 }
+
+                await _unitOfWork.SaveChangeAsync();
 
                 await _unitOfWork.CommitTransactionAsync();
             }

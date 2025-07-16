@@ -47,7 +47,7 @@ namespace BookSale.Management.DataAccess.Repository
             await _dbContextTransaction?.RollbackAsync();
         }
 
-        public async Task CommitAsync()
+        public async Task SaveChangeAsync()
         {
             await _applicationDbContext.SaveChangesAsync();
         }

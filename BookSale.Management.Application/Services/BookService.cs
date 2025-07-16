@@ -77,7 +77,7 @@ namespace BookSale.Management.Application.Services
 
             await _unitOfWork.BookRepository.AddAsync(book);
 
-            await _unitOfWork.CommitAsync();
+            await _unitOfWork.SaveChangeAsync();
 
             return new ResponseModel
             {
@@ -92,7 +92,7 @@ namespace BookSale.Management.Application.Services
             {
                 _unitOfWork.BookRepository.Update(book);
 
-                await _unitOfWork.CommitAsync();
+                await _unitOfWork.SaveChangeAsync();
 
                 return new ResponseModel
                 {

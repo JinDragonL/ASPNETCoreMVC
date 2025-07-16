@@ -14,7 +14,7 @@ namespace BookSale.Management.DataAccess.Abstract
         ICartRepository CartRepository { get; }
 
         Task BeginTransaction();
-        Task CommitAsync();
+        Task SaveChangeAsync();
         Task CommitTransactionAsync();
         void Dispose();
         Task RollbackTransactionAsync();

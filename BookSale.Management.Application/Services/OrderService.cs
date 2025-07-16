@@ -58,7 +58,7 @@ namespace BookSale.Management.Application.Services
 
                 await _unitOfWork.OrderRepository.SaveAsync(order);
 
-                await _unitOfWork.CommitAsync();
+                await _unitOfWork.SaveChangeAsync();
 
                 if (orderDTO.Books.Any())
                 {
@@ -76,7 +76,7 @@ namespace BookSale.Management.Application.Services
                         await _unitOfWork.Table<OrderDetail>().AddAsync(orderDetail);
                     }
 
-                    await _unitOfWork.CommitAsync();
+                    await _unitOfWork.SaveChangeAsync();
                 }
 
                 await _unitOfWork.CommitTransactionAsync();

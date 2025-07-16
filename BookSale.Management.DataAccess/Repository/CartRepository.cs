@@ -9,16 +9,14 @@ namespace BookSale.Management.DataAccess.Repository
         {
         }
 
-        public async Task Save(Cart order)
+        public async Task CreateAsync(Cart order)
         {
-            if (order.Id == 0)
-            {
-                await base.Create(order);
-            }
-            else
-            {
-                base.Update(order);
-            }
+            await base.Create(order);
+        }
+
+        public void Update(Cart order)
+        {
+            base.Update(order);
         }
     }
 }
