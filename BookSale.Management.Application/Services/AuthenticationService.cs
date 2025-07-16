@@ -1,5 +1,5 @@
 ﻿using BookSale.Management.Application.Abstracts;
-using BookSale.Management.Application.DTOs;
+using BookSale.Management.Application.Dtos;
 using BookSale.Management.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 

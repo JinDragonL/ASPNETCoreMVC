@@ -1,4 +1,4 @@
-﻿using BookSale.Management.Application.DTOs;
+﻿using BookSale.Management.Application.Dtos;
 using BookSale.Management.Application.DTOs.Genre;
 using Microsoft.AspNetCore.Mvc.Rendering;
 

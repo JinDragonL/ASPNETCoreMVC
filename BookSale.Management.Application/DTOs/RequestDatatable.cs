@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace BookSale.Management.Application.DTOs
+namespace BookSale.Management.Application.Dtos
 {
     public class RequestDatatable
     {

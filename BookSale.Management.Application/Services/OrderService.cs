@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using BookSale.Management.Application.Abstracts;
-using BookSale.Management.Application.DTOs;
+using BookSale.Management.Application.Dtos;
 using BookSale.Management.Application.DTOs.Chart;
 using BookSale.Management.Application.DTOs.Order;
 using BookSale.Management.Application.DTOs.Report;
 using BookSale.Management.DataAccess.Abstract;
-using BookSale.Management.DataAccess.Migrations;
 using BookSale.Management.Domain.Entities;
 using BookSale.Management.Domain.Enums;
 using Microsoft.EntityFrameworkCore;

@@ -1,4 +1,4 @@
-﻿using BookSale.Management.Application.DTOs;
+﻿using BookSale.Management.Application.Dtos;
 
 namespace BookSale.Management.Application.Abstracts
 {

@@ -43,7 +43,8 @@ namespace BookSale.Management.UI.Areas.Admin.Controllers
                 return View(loginModel);
             }
 
-            var result = await _authenticationService.LoginAsync(loginModel.Username, loginModel.Password, loginModel.HasRemember);
+            var result = await _authenticationService.LoginAsync(loginModel.Username, loginModel.Password, 
+                    loginModel.HasRemember);
 
             if (!result.Success)
             {

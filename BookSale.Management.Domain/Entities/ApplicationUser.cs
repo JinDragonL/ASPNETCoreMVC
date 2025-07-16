@@ -13,5 +13,7 @@ namespace BookSale.Management.Domain.Entities
         public string? Address { get; set; }
         [Required]
         public bool IsActive { get; set; }
+        [StringLength(500)]
+        public string? Avatar { get; set; }
     }
 }

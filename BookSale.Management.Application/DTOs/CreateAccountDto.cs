@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookSale.Management.Application.DTOs
 {
@@ -20,5 +21,7 @@ namespace BookSale.Management.Application.DTOs
         public string? MobilePhone { get; set; }
         public string? Address { get; set; }
         public bool IsActive { get; set; }
+        public IFormFile Image { get; set; }
+
     }
 }

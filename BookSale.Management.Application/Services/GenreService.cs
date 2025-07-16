@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BookSale.Management.Application.Abstracts;
-using BookSale.Management.Application.DTOs;
+using BookSale.Management.Application.Dtos;
 using BookSale.Management.Application.DTOs.Genre;
 using BookSale.Management.DataAccess.Abstract;
 using BookSale.Management.Domain.Entities;

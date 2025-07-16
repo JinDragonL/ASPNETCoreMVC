@@ -3,28 +3,24 @@
   "WorkspaceRootPath": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|e:\\channel clips\\mvcnetcore\\aspnetcoremvc\\booksale.management.ui\\areas\\admin\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|solutionrelative:booksale.management.ui\\areas\\admin\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|e:\\channel clips\\mvcnetcore\\aspnetcoremvc\\booksale.management.ui\\areas\\admin\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|solutionrelative:booksale.management.ui\\areas\\admin\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{32E74365-22A8-4618-B712-3713D8381010}|BookSale.Management.Application\\BookSale.Management.Application.csproj|e:\\channel clips\\mvcnetcore\\aspnetcoremvc\\booksale.management.application\\services\\genreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{32E74365-22A8-4618-B712-3713D8381010}|BookSale.Management.Application\\BookSale.Management.Application.csproj|solutionrelative:booksale.management.application\\services\\genreservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|e:\\channel clips\\mvcnetcore\\aspnetcoremvc\\booksale.management.ui\\areas\\admin\\views\\book\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|solutionrelative:booksale.management.ui\\areas\\admin\\views\\book\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{32E74365-22A8-4618-B712-3713D8381010}|BookSale.Management.Application\\BookSale.Management.Application.csproj|e:\\channel clips\\mvcnetcore\\aspnetcoremvc\\booksale.management.application\\services\\bookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{32E74365-22A8-4618-B712-3713D8381010}|BookSale.Management.Application\\BookSale.Management.Application.csproj|solutionrelative:booksale.management.application\\services\\bookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|e:\\channel clips\\mvcnetcore\\aspnetcoremvc\\booksale.management.ui\\areas\\admin\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|solutionrelative:booksale.management.ui\\areas\\admin\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|e:\\channel clips\\mvcnetcore\\aspnetcoremvc\\booksale.management.ui\\areas\\admin\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|solutionrelative:booksale.management.ui\\areas\\admin\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|e:\\channel clips\\mvcnetcore\\aspnetcoremvc\\booksale.management.ui\\areas\\admin\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|solutionrelative:booksale.management.ui\\areas\\admin\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|e:\\channel clips\\mvcnetcore\\aspnetcoremvc\\booksale.management.ui\\areas\\admin\\controllers\\genrecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|solutionrelative:booksale.management.ui\\areas\\admin\\controllers\\genrecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|e:\\channel clips\\mvcnetcore\\aspnetcoremvc\\booksale.management.ui\\areas\\admin\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BDAC8256-3FE7-4016-B3D4-3044368FE9B5}|BookSale.Management.UI\\BookSale.Management.UI.csproj|solutionrelative:booksale.management.ui\\areas\\admin\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,85 +30,69 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ReportController.cs",
-              "DocumentMoniker": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Controllers\\ReportController.cs",
-              "RelativeDocumentMoniker": "BookSale.Management.UI\\Areas\\Admin\\Controllers\\ReportController.cs",
-              "ToolTip": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Controllers\\ReportController.cs",
-              "RelativeToolTip": "BookSale.Management.UI\\Areas\\Admin\\Controllers\\ReportController.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAUwB0AAABEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T09:45:37.422Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "DashboardController.cs",
-              "DocumentMoniker": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Controllers\\DashboardController.cs",
-              "RelativeDocumentMoniker": "BookSale.Management.UI\\Areas\\Admin\\Controllers\\DashboardController.cs",
-              "ToolTip": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Controllers\\DashboardController.cs",
-              "RelativeToolTip": "BookSale.Management.UI\\Areas\\Admin\\Controllers\\DashboardController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAfAAAAAAAAAA==",
+              "Title": "AuthenticationController.cs",
+              "DocumentMoniker": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Controllers\\AuthenticationController.cs",
+              "RelativeDocumentMoniker": "BookSale.Management.UI\\Areas\\Admin\\Controllers\\AuthenticationController.cs",
+              "ToolTip": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Controllers\\AuthenticationController.cs",
+              "RelativeToolTip": "BookSale.Management.UI\\Areas\\Admin\\Controllers\\AuthenticationController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAowC4AAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T09:45:18.847Z",
+              "WhenOpened": "2025-07-16T04:32:22.587Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GenreService.cs",
-              "DocumentMoniker": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.Application\\Services\\GenreService.cs",
-              "RelativeDocumentMoniker": "BookSale.Management.Application\\Services\\GenreService.cs",
-              "ToolTip": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.Application\\Services\\GenreService.cs",
-              "RelativeToolTip": "BookSale.Management.Application\\Services\\GenreService.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAUwDcAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T09:44:51.867Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Views\\Book\\Create.cshtml",
-              "RelativeDocumentMoniker": "BookSale.Management.UI\\Areas\\Admin\\Views\\Book\\Create.cshtml",
-              "ToolTip": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Views\\Book\\Create.cshtml",
-              "RelativeToolTip": "BookSale.Management.UI\\Areas\\Admin\\Views\\Book\\Create.cshtml",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-13T09:44:29.402Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "BookService.cs",
-              "DocumentMoniker": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.Application\\Services\\BookService.cs",
-              "RelativeDocumentMoniker": "BookSale.Management.Application\\Services\\BookService.cs",
-              "ToolTip": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.Application\\Services\\BookService.cs",
-              "RelativeToolTip": "BookSale.Management.Application\\Services\\BookService.cs",
-              "ViewState": "AgIAAHoAAAAAAAAAAAAuwJEAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T08:08:55.237Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "BookController.cs",
               "DocumentMoniker": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Controllers\\BookController.cs",
               "RelativeDocumentMoniker": "BookSale.Management.UI\\Areas\\Admin\\Controllers\\BookController.cs",
               "ToolTip": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Controllers\\BookController.cs",
               "RelativeToolTip": "BookSale.Management.UI\\Areas\\Admin\\Controllers\\BookController.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAArwG4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACkAAAAAAAAAAAAIwAMAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-13T02:31:10.368Z",
+              "WhenOpened": "2025-07-15T07:55:42.747Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "BookSale.Management.UI\\Areas\\Admin\\Controllers\\OrderController.cs",
+              "ToolTip": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "BookSale.Management.UI\\Areas\\Admin\\Controllers\\OrderController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAUwBgAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T07:55:27.335Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GenreController.cs",
+              "DocumentMoniker": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Controllers\\GenreController.cs",
+              "RelativeDocumentMoniker": "BookSale.Management.UI\\Areas\\Admin\\Controllers\\GenreController.cs",
+              "ToolTip": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Controllers\\GenreController.cs",
+              "RelativeToolTip": "BookSale.Management.UI\\Areas\\Admin\\Controllers\\GenreController.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAUwCEAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T07:51:02.057Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "BookSale.Management.UI\\Areas\\Admin\\Controllers\\AccountController.cs",
+              "ToolTip": "E:\\Channel Clips\\MVCNetCore\\ASPNETCoreMVC\\BookSale.Management.UI\\Areas\\Admin\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "BookSale.Management.UI\\Areas\\Admin\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T07:48:10.078Z"
             }
           ]
         }

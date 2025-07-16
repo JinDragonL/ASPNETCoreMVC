@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BookSale.Management.Application.Abstracts;
+using BookSale.Management.Application.Dtos;
 using BookSale.Management.Application.DTOs;
 using BookSale.Management.Domain.Abstracts;
 using BookSale.Management.Domain.Entities;
@@ -14,7 +15,7 @@ namespace BookSale.Management.Application.Services
         private readonly IImageService _imageService;
         private readonly IMapper _mapper;
 
-        public UserService(UserManager<ApplicationUser> userManager, 
+        public UserService(UserManager<ApplicationUser> userManager,
                             IImageService imageService,
                             IMapper mapper)
         {
@@ -43,7 +44,8 @@ namespace BookSale.Management.Application.Services
 
             var result = users.Skip(request.SkipItems).Take(request.PageSize).ToList();
 
-            return new ResponseDatatable<UserModel> {
+            return new ResponseDatatable<UserModel>
+            {
                 Draw = request.Draw,
                 RecordsTotal = totalRecords,
                 RecordsFiltered = totalRecords,
@@ -56,18 +58,21 @@ namespace BookSale.Management.Application.Services
             return await _userManager.FindByIdAsync(id);
         }
 
-        public async Task<ResponseModel> CreateAsync(ApplicationUser user, string roleName)
+        public async Task<ResponseModel<string>> CreateAsync(ApplicationUser user, string roleName)
         {
-            var identityResult = await _userManager.CreateAsync(user, user.PasswordHash);
+            user.NormalizedEmail = user.Email.ToUpper();
+            user.NormalizedUserName = user.UserName.ToUpper();
+
+            var identityResult = await _userManager.CreateAsync(user, user.PasswordHash!);
 
             if (!identityResult.Succeeded)
             {
                 var errors = string.Join("<br/>", identityResult.Errors.Select(x => x.Description));
 
-                return new ResponseModel
+                return new ResponseModel<string>
                 {
                     Success = false,
-                    Message = errors,
+                    Message = errors
                 };
             }
 
@@ -76,10 +81,11 @@ namespace BookSale.Management.Application.Services
                 await _userManager.AddToRoleAsync(user, roleName);
             }
 
-            return new ResponseModel
+            return new ResponseModel<string>
             {
                 Success = true,
-                Message = "Insert user successfully",
+                Message = "Created user successfully",
+                Data = user.Id
             };
         }
 
@@ -90,10 +96,9 @@ namespace BookSale.Management.Application.Services
             return new ResponseModel
             {
                 Success = true,
-                Message = "Update user successfully",
+                Message = "Update user successfully"
             };
         }
-
 
         public async Task<ResponseModel> DeleteAsync(string id)
         {
@@ -125,5 +130,6 @@ namespace BookSale.Management.Application.Services
                 Message = "Delete user failed.",
             };
         }
+ 
     }
 }
