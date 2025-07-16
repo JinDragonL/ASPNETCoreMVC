@@ -18,6 +18,20 @@ namespace BookSale.Management.Application.Configuration
                 .ForMember(dest => dest.Phone, source => source.MapFrom(src => src.PhoneNumber))
                 .ReverseMap();
 
+            CreateMap<CreateAccountDto, ApplicationUser>()
+               .ForMember(dest => dest.PasswordHash, source => source.MapFrom(src => src.Password))
+               .ReverseMap();
+
+            CreateMap<EditAccountDto, ApplicationUser>()
+                .ReverseMap();
+
+            CreateMap<AddBookViewModel, Book>()
+                            .ForMember(dest => dest.Publisher, opt => opt.MapFrom(s => s.PublisherCompany))
+                            .ReverseMap();
+
+            CreateMap<EditBookViewModel, Book>()
+                           .ReverseMap();
+
             CreateMap<Genre, GenreDto>().ReverseMap();
             CreateMap<Book, BookViewModel>().ReverseMap();
             CreateMap<Book, BookDto>().ReverseMap();
